@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:grpc/grpc.dart';
+import 'package:sound_recognizer/generated/sound_service.pbgrpc.dart';
 import 'package:sound_recognizer/utils/sound_player.dart';
 import 'package:sound_recognizer/utils/sound_recorder.dart';
 
@@ -16,6 +18,22 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final SoundRecorder _soundRecorder = SoundRecorder();
   final SoundPlayer _soundPlayer = SoundPlayer();
+
+  late final ClientChannel _grpcClientChannel;
+  late final SoundServiceClient _soundServiceClient;
+
+  @override
+  void initState() {
+    _grpcClientChannel = ClientChannel(
+      "192.168.100.8",
+      port: 8099,
+      options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
+    );
+
+    _soundServiceClient = SoundServiceClient(_grpcClientChannel);
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +56,12 @@ class _MyAppState extends State<MyApp> {
                   );
 
                   _soundPlayer.play(soundValues);
+
+                  final response = await _soundServiceClient.sendSound(
+                    Sound(soundValues: soundValues),
+                  );
+
+                  print("Response: $response");
                 },
                 child: const Text("Start recording"),
               ),
