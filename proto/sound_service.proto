@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package com.shpakovskiy.soundrecognizer;
+
+option java_outer_classname = "SoundRecognizerService";
+
+service SoundService {
+  rpc sendSound(Sound) returns (EmptyResponse);
+}
+
+message Sound {
+  bytes sound_values = 1;
+}
+
+message EmptyResponse {}
