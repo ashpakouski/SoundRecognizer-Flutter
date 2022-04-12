@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:sound_recognizer/utils/sound_player.dart';
+import 'package:sound_recognizer/utils/sound_recorder.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final SoundRecorder _soundRecorder = SoundRecorder();
+  final SoundPlayer _soundPlayer = SoundPlayer();
 
   @override
   Widget build(BuildContext context) {
@@ -13,27 +23,28 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
-    );
-  }
-}
+      home: Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () async {
+                  await _soundRecorder.open();
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+                  List<int> soundValues = await _soundRecorder.recordSound(
+                    duration: const Duration(seconds: 10),
+                  );
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Sound recognizer"),
-      ),
-      body: const Center(
-        child: Text("Hey"),
+                  _soundPlayer.play(soundValues);
+                },
+                child: const Text("Start recording"),
+              ),
+              const Text("Tap to start recording"),
+            ],
+          ),
+        ),
       ),
     );
   }
