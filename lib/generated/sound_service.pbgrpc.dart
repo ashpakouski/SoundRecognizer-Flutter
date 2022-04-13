@@ -18,6 +18,12 @@ class SoundServiceClient extends $grpc.Client {
       '/com.shpakovskiy.soundrecognizer.SoundService/sendSound',
       ($0.Sound value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.EmptyResponse.fromBuffer(value));
+  static final _$recognizeSound =
+      $grpc.ClientMethod<$0.Sound, $0.RecognitionResult>(
+          '/com.shpakovskiy.soundrecognizer.SoundService/recognizeSound',
+          ($0.Sound value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.RecognitionResult.fromBuffer(value));
 
   SoundServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -27,6 +33,11 @@ class SoundServiceClient extends $grpc.Client {
   $grpc.ResponseFuture<$0.EmptyResponse> sendSound($0.Sound request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$sendSound, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.RecognitionResult> recognizeSound($0.Sound request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$recognizeSound, request, options: options);
   }
 }
 
@@ -41,6 +52,13 @@ abstract class SoundServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.Sound.fromBuffer(value),
         ($0.EmptyResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.Sound, $0.RecognitionResult>(
+        'recognizeSound',
+        recognizeSound_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.Sound.fromBuffer(value),
+        ($0.RecognitionResult value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.EmptyResponse> sendSound_Pre(
@@ -48,6 +66,13 @@ abstract class SoundServiceBase extends $grpc.Service {
     return sendSound(call, await request);
   }
 
+  $async.Future<$0.RecognitionResult> recognizeSound_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.Sound> request) async {
+    return recognizeSound(call, await request);
+  }
+
   $async.Future<$0.EmptyResponse> sendSound(
+      $grpc.ServiceCall call, $0.Sound request);
+  $async.Future<$0.RecognitionResult> recognizeSound(
       $grpc.ServiceCall call, $0.Sound request);
 }

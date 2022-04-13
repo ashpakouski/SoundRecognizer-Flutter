@@ -4,12 +4,25 @@ package com.shpakovskiy.soundrecognizer;
 
 option java_outer_classname = "SoundRecognizerService";
 
+// This is an experimental implementation. It will be updated soon.
+
 service SoundService {
   rpc sendSound(Sound) returns (EmptyResponse);
+  rpc recognizeSound(Sound) returns (RecognitionResult);
 }
 
 message Sound {
   bytes sound_values = 1;
+  string file_name = 2;
 }
 
-message EmptyResponse {}
+message EmptyResponse {
+  int32 received_sound_length = 1;
+}
+
+message RecognitionResult {
+  oneof recognizedSource {
+    string sound_source_name = 1;
+    double probability = 2;
+  }
+}
