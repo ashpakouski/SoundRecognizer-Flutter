@@ -65,8 +65,11 @@ class AudioVisualizer extends StatelessWidget {
       for (int i = 0; i < barsNumber; i++) {
         final currentSublist = soundValues.getRange(i * rangeLength, (i + 1) * rangeLength - 1);
 
+        print("Len: ${currentSublist.length}; CurrentSublist: $currentSublist");
+
         if (currentSublist.isNotEmpty) {
           normalizedAmplitudes[i] = currentSublist.reduce(max) / maxAmplitude;
+          // normalizedAmplitudes[i] = currentSublist.sum / currentSublist.length / maxAmplitude;
         }
 
         normalizedAmplitudes[i] = 1 - normalizedAmplitudes[i];

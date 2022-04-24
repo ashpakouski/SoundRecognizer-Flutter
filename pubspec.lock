@@ -22,13 +22,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.6+1"
-  audioplayers:
-    dependency: "direct main"
-    description:
-      name: audioplayers
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.20.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -111,13 +104,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_audio_waveforms:
-    dependency: "direct main"
-    description:
-      name: flutter_audio_waveforms
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.2.1+4"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -131,21 +117,21 @@ packages:
       name: flutter_sound
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "9.1.9"
+    version: "9.2.10"
   flutter_sound_platform_interface:
     dependency: transitive
     description:
       name: flutter_sound_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "9.1.9"
+    version: "9.2.10"
   flutter_sound_web:
     dependency: transitive
     description:
       name: flutter_sound_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "9.1.9"
+    version: "9.2.10"
   flutter_spinkit:
     dependency: "direct main"
     description:
