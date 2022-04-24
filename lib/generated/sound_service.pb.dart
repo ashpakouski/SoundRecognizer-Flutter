@@ -117,27 +117,15 @@ class EmptyResponse extends $pb.GeneratedMessage {
   void clearReceivedSoundLength() => clearField(1);
 }
 
-enum RecognitionResult_RecognizedSource {
-  soundSourceName, 
-  probability, 
-  notSet
-}
-
-class RecognitionResult extends $pb.GeneratedMessage {
-  static const $core.Map<$core.int, RecognitionResult_RecognizedSource> _RecognitionResult_RecognizedSourceByTag = {
-    1 : RecognitionResult_RecognizedSource.soundSourceName,
-    2 : RecognitionResult_RecognizedSource.probability,
-    0 : RecognitionResult_RecognizedSource.notSet
-  };
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RecognitionResult', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'com.shpakovskiy.soundrecognizer'), createEmptyInstance: create)
-    ..oo(0, [1, 2])
+class RecognizedSound extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RecognizedSound', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'com.shpakovskiy.soundrecognizer'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'soundSourceName')
     ..a<$core.double>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'probability', $pb.PbFieldType.OD)
     ..hasRequiredFields = false
   ;
 
-  RecognitionResult._() : super();
-  factory RecognitionResult({
+  RecognizedSound._() : super();
+  factory RecognizedSound({
     $core.String? soundSourceName,
     $core.double? probability,
   }) {
@@ -147,6 +135,62 @@ class RecognitionResult extends $pb.GeneratedMessage {
     }
     if (probability != null) {
       _result.probability = probability;
+    }
+    return _result;
+  }
+  factory RecognizedSound.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory RecognizedSound.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  RecognizedSound clone() => RecognizedSound()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  RecognizedSound copyWith(void Function(RecognizedSound) updates) => super.copyWith((message) => updates(message as RecognizedSound)) as RecognizedSound; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static RecognizedSound create() => RecognizedSound._();
+  RecognizedSound createEmptyInstance() => create();
+  static $pb.PbList<RecognizedSound> createRepeated() => $pb.PbList<RecognizedSound>();
+  @$core.pragma('dart2js:noInline')
+  static RecognizedSound getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RecognizedSound>(create);
+  static RecognizedSound? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get soundSourceName => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set soundSourceName($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSoundSourceName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSoundSourceName() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.double get probability => $_getN(1);
+  @$pb.TagNumber(2)
+  set probability($core.double v) { $_setDouble(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasProbability() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearProbability() => clearField(2);
+}
+
+class RecognitionResult extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RecognitionResult', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'com.shpakovskiy.soundrecognizer'), createEmptyInstance: create)
+    ..pc<RecognizedSound>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'recognitionResult', $pb.PbFieldType.PM, protoName: 'recognitionResult', subBuilder: RecognizedSound.create)
+    ..hasRequiredFields = false
+  ;
+
+  RecognitionResult._() : super();
+  factory RecognitionResult({
+    $core.Iterable<RecognizedSound>? recognitionResult,
+  }) {
+    final _result = create();
+    if (recognitionResult != null) {
+      _result.recognitionResult.addAll(recognitionResult);
     }
     return _result;
   }
@@ -171,25 +215,7 @@ class RecognitionResult extends $pb.GeneratedMessage {
   static RecognitionResult getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RecognitionResult>(create);
   static RecognitionResult? _defaultInstance;
 
-  RecognitionResult_RecognizedSource whichRecognizedSource() => _RecognitionResult_RecognizedSourceByTag[$_whichOneof(0)]!;
-  void clearRecognizedSource() => clearField($_whichOneof(0));
-
   @$pb.TagNumber(1)
-  $core.String get soundSourceName => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set soundSourceName($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSoundSourceName() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSoundSourceName() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.double get probability => $_getN(1);
-  @$pb.TagNumber(2)
-  set probability($core.double v) { $_setDouble(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasProbability() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearProbability() => clearField(2);
+  $core.List<RecognizedSound> get recognitionResult => $_getList(0);
 }
 

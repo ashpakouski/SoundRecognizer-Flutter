@@ -53,7 +53,7 @@ class SoundRecorder {
     _recordingStreamSubscription = recordingDataController.stream.listen((buffer) async {
       if (buffer is FoodData) {
         _soundBuffer.addAll(buffer.data!);
-        print("SoundValues: $buffer");
+        // print("SoundValues: $buffer");
       }
     });
   }
