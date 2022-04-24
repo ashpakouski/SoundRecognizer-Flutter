@@ -78,6 +78,8 @@ class SoundRecorder {
   Future<void> checkPermission() async {
     final microphonePermissionStatus = await Permission.microphone.request();
 
+    print("Microphone permission status: $microphonePermissionStatus");
+
     if (microphonePermissionStatus != PermissionStatus.granted) {
       throw RecordingPermissionException(
         'Audio recording permission is not granted',
