@@ -1,14 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_audio_waveforms/flutter_audio_waveforms.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:grpc/grpc.dart';
-import 'package:http/io_client.dart';
-import 'package:sound_recognizer/generated/sound_service.pbgrpc.dart';
 import 'package:sound_recognizer/utils/sound_player.dart';
 import 'package:sound_recognizer/utils/sound_recorder.dart';
+import 'component/audio_visualizer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,6 +17,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final SoundRecorder _soundRecorder = SoundRecorder();
   final SoundPlayer _soundPlayer = SoundPlayer();
+
+  final List<int> currentAudioData = [];
+
+  int lastFrame = 0;
+  int thisFrame = DateTime.now().millisecondsSinceEpoch;
 
   late final ClientChannel _grpcClientChannel;
   late final SoundServiceClient _soundServiceClient;
@@ -58,67 +56,75 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                 child: Center(
                   child: recognitionResult != null
                       ? Text(recognitionResult!,
-                          style: const TextStyle(fontSize: 25),
-                          textAlign: TextAlign.center)
+                      style: const TextStyle(fontSize: 25),
+                      textAlign: TextAlign.center)
                       : const SpinKitPouringHourGlass(
-                          color: Colors.blue,
-                          size: 150,
-                        ),
+                    color: Colors.blue,
+                    size: 150,
+                  ),
                 ),
                 flex: 8,
               ),
-              Expanded(
-                child: Center(
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      setState(() {
-                        recognitionResult = null;
-                      });
+              ElevatedButton(
+                onPressed: () async {
+                  await _soundRecorder.open();
 
-                      await _soundRecorder.open();
+                  List<int> soundValues = await _soundRecorder.recordSound(
+                    duration: const Duration(seconds: 12),
+                    onNewData: (newData) {
+                      thisFrame = DateTime.now().millisecondsSinceEpoch;
 
-                      List<int> soundValues = await _soundRecorder.recordSound(
-                        duration: const Duration(seconds: 10),
-                      );
+                      if (thisFrame - lastFrame > 1000 / 15) {
+                        currentAudioData.clear();
 
-                      setState(() {
-                        doubleSounds.clear();
-                        doubleSounds.addAll(soundValues.map((e) => e.toDouble()).toList());
-                      });
+                        setState(() {
+                          currentAudioData.addAll(newData);
+                        });
 
-                      // _soundPlayer.play(soundValues);
-
-                      // final response = await _soundServiceClient.sendSound(
-                      //   Sound(soundValues: soundValues),
-                      // );
-
-                      final response = await _soundServiceClient.recognizeSound(
-                        Sound(
-                          soundValues: soundValues,
-                          fileName: "Request.pcm",
-                        ),
-                      );
-
-                      setState(() {
-                        recognitionResult = response.recognitionResult
-                            .map((e) =>
-                                "${e.soundSourceName} - ${(e.probability * 100).toStringAsFixed(2)}%")
-                            .join("\n");
-                      });
-
-                      print("Response: $response");
+                        lastFrame = thisFrame;
+                      }
                     },
-                    child: const Text("Start recording"),
-                  ),
+                  );
+
+                  //_soundPlayer.play(soundValues);
+
+                  final response = await _soundServiceClient.recognizeSound(
+                    Sound(
+                      soundValues: soundValues,
+                      fileName: "Request.pcm",
+                    ),
+                  );
+
+                  setState(() {
+                    recognitionResult = response.recognitionResult
+                        .map((e) =>
+                    "${e.soundSourceName} - ${(e.probability * 100).toStringAsFixed(2)}%")
+                        .join("\n");
+                  });
+                },
+                child: const Text("Start recording"),
+              ),
+              SizedBox(
+                height: 100,
+                child: AudioVisualizer(
+                  soundValues: currentAudioData,
+                  barsNumber: 30,
+                  maxAmplitude: 255,
+                  maxHeight: 80,
+                  minHeight: 10,
+                  animationDuration: const Duration(milliseconds: 100),
+                  barWidth: 5,
+                  barRadius: BorderRadius.circular(5),
+                  barPadding: const EdgeInsets.symmetric(horizontal: 2),
+                  barColor: Colors.green,
                 ),
-                flex: 1,
               ),
             ],
           ),

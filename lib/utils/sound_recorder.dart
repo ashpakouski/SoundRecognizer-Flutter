@@ -38,7 +38,7 @@ class SoundRecorder {
     );
   }
 
-  Future<void> startRecording() async {
+  Future<void> startRecording({Function(List<int>)? onNewData}) async {
     var recordingDataController = StreamController<Food>();
 
     await _soundRecorder.startRecorder(
@@ -53,7 +53,10 @@ class SoundRecorder {
     _recordingStreamSubscription = recordingDataController.stream.listen((buffer) async {
       if (buffer is FoodData) {
         _soundBuffer.addAll(buffer.data!);
-        // print("SoundValues: $buffer");
+
+        if (onNewData != null) {
+          onNewData(buffer.data!);
+        }
       }
     });
   }
@@ -66,8 +69,9 @@ class SoundRecorder {
 
   Future<List<int>> recordSound({
     required Duration duration,
+    Function(List<int>)? onNewData
   }) async {
-    await startRecording();
+    await startRecording(onNewData: onNewData);
     return Future.delayed(duration, stopRecording);
   }
 
