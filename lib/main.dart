@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:grpc/grpc.dart';
 import 'package:sound_recognizer/generated/sound_service.pbgrpc.dart';
+import 'package:sound_recognizer/home_screen.dart';
 import 'package:sound_recognizer/utils/sound_player.dart';
 import 'package:sound_recognizer/utils/sound_recorder.dart';
 import 'component/audio_visualizer.dart';
@@ -10,6 +11,18 @@ void main() {
   runApp(const MyApp());
 }
 
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: HomeScreen(),
+    );
+  }
+}
+
+/*
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -158,3 +171,5 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
+ */
