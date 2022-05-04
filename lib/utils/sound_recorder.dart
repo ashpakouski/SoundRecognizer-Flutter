@@ -3,11 +3,14 @@ import 'dart:async';
 import 'package:audio_session/audio_session.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_sound_platform_interface/flutter_sound_recorder_platform_interface.dart';
 
 class SoundRecorder {
   final FlutterSoundRecorder _soundRecorder = FlutterSoundRecorder();
   StreamSubscription? _recordingStreamSubscription;
   final List<int> _soundBuffer = [];
+
+  bool get isRecording => _soundRecorder.recorderState == RecorderState.isRecording;
 
   Future<void> open() async {
     await checkPermission();

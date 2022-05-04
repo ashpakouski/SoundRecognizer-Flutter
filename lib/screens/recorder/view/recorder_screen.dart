@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sound_recognizer/generated/sound_service.pbgrpc.dart';
 import 'package:sound_recognizer/repository/sound_repository.dart';
-import 'package:sound_recognizer/screens/recognizer/cubit/recorder_cubit.dart';
+import 'package:sound_recognizer/screens/recorder/cubit/recorder_cubit.dart';
 
 import 'package:sound_recognizer/utils/sound_recorder.dart';
 
@@ -50,6 +50,8 @@ class _RecorderScreenState extends State<RecorderScreen> {
       body: BlocBuilder<RecorderCubit, RecorderState>(
         bloc: context.watch<RecorderCubit>(),
         builder: (context, state) {
+          print(">>> Recorder state: $state");
+
           return SafeArea(
             child: Center(
               child: Column(
@@ -58,13 +60,17 @@ class _RecorderScreenState extends State<RecorderScreen> {
                 children: [
                   ElevatedButton(
                     onPressed: () async {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => const ResultScreen()),
+                      // );
+
                       if (!_isRecording) {
                         await _soundRecorder.open();
 
                         _soundRecorder.startRecording();
                       } else {
-                        List<int> soundValues =
-                            await _soundRecorder.stopRecording();
+                        List<int> soundValues = await _soundRecorder.stopRecording();
 
                         final deviceInfo = await DeviceInfoPlugin().androidInfo;
 
@@ -81,10 +87,12 @@ class _RecorderScreenState extends State<RecorderScreen> {
                           ),
                         );
 
-                        final response = await _soundRepository.client.sendSound(
+                        final response =
+                            await _soundRepository.client.sendSound(
                           Sound(
                             soundValues: soundValues,
-                            fileName: "${deviceInfo.device}-${deviceInfo.brand}-[${DateTime.now().hour}:${DateTime.now().minute}]-${fileName.trim().toLowerCase()}.pcm",
+                            fileName:
+                                "${deviceInfo.device}-${deviceInfo.brand}-[${DateTime.now().hour}:${DateTime.now().minute}]-${fileName.trim().toLowerCase()}.pcm",
                           ),
                         );
 
@@ -109,15 +117,22 @@ class _RecorderScreenState extends State<RecorderScreen> {
                     child: Icon(
                       _isRecording ? Icons.stop_rounded : Icons.mic,
                       color: Colors.white,
-                      size: 70,
+                      size: 120,
                     ),
                     style: ElevatedButton.styleFrom(
                       shape: const CircleBorder(),
                       padding: const EdgeInsets.all(25),
-                      primary: Colors.pinkAccent,
+                      primary: const Color(0xFFFF6C63),
                       onPrimary: Colors.black87,
                     ),
                   ),
+                  const SizedBox(height: 150),
+                  const Text(
+                    "Tap to start recording",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  )
                 ],
               ),
             ),

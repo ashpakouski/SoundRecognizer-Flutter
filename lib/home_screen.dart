@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sound_recognizer/screens/recognizer/view/recognizer_screen.dart';
-import 'package:sound_recognizer/screens/recorder/recorder_screen.dart';
+import 'package:sound_recognizer/screens/recorder/view/recorder_screen.dart';
 import 'package:sound_recognizer/screens/settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
