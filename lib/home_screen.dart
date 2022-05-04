@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sound_recognizer/screens/recognizer_screen.dart';
-import 'package:sound_recognizer/screens/recorder_screen.dart';
+import 'package:sound_recognizer/screens/recognizer/view/recognizer_screen.dart';
+import 'package:sound_recognizer/screens/recorder/recorder_screen.dart';
 import 'package:sound_recognizer/screens/settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static const List<Widget> _widgetOptions = <Widget>[
     RecorderScreen(),
     RecognizerScreen(),
-    SettingsScreen()
+    // SettingsScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -43,11 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Recognition',
             //title: Text('Business'),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-            //title: Text('School'),
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.settings),
+          //   label: 'Settings',
+          //   //title: Text('School'),
+          // ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],

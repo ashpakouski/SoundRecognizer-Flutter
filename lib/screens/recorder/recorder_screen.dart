@@ -1,10 +1,12 @@
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:grpc/grpc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sound_recognizer/generated/sound_service.pbgrpc.dart';
+import 'package:sound_recognizer/repository/sound_repository.dart';
+import 'package:sound_recognizer/screens/recognizer/cubit/recorder_cubit.dart';
 
-import '../utils/sound_recorder.dart';
+import 'package:sound_recognizer/utils/sound_recorder.dart';
 
 class RecorderScreen extends StatefulWidget {
   const RecorderScreen({Key? key}) : super(key: key);
@@ -16,27 +18,10 @@ class RecorderScreen extends StatefulWidget {
 class _RecorderScreenState extends State<RecorderScreen> {
   final SoundRecorder _soundRecorder = SoundRecorder();
 
-  late final ClientChannel _grpcClientChannel;
-  late final SoundServiceClient _soundServiceClient;
-
   bool _isRecording = false;
   String fileName = "Default";
 
-  @override
-  void initState() {
-    _grpcClientChannel = ClientChannel(
-      // "192.168.100.8",
-      "113.30.188.201",
-      port: 8099,
-      options: const ChannelOptions(
-        credentials: ChannelCredentials.insecure(),
-      ),
-    );
-
-    _soundServiceClient = SoundServiceClient(_grpcClientChannel);
-
-    super.initState();
-  }
+  final SoundRepository _soundRepository = SoundRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -62,95 +47,83 @@ class _RecorderScreenState extends State<RecorderScreen> {
         bottomOpacity: 0.0,
         toolbarHeight: 50,
       ),
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  if (!_isRecording) {
-                    await _soundRecorder.open();
+      body: BlocBuilder<RecorderCubit, RecorderState>(
+        bloc: context.watch<RecorderCubit>(),
+        builder: (context, state) {
+          return SafeArea(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (!_isRecording) {
+                        await _soundRecorder.open();
 
-                    _soundRecorder.startRecording();
-                  } else {
-                    List<int> soundValues =
-                        await _soundRecorder.stopRecording();
+                        _soundRecorder.startRecording();
+                      } else {
+                        List<int> soundValues =
+                            await _soundRecorder.stopRecording();
 
-                    final deviceInfo = await DeviceInfoPlugin().androidInfo;
+                        final deviceInfo = await DeviceInfoPlugin().androidInfo;
 
-                    await showModalBottomSheet<void>(
-                      context: context,
-                      builder: _bottomSheet,
-                      isDismissible: false,
-                      isScrollControlled: true,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(16),
-                          topRight: Radius.circular(16),
-                        ),
-                      ),
-                    );
+                        await showModalBottomSheet<void>(
+                          context: context,
+                          builder: _bottomSheet,
+                          isDismissible: false,
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(16),
+                              topRight: Radius.circular(16),
+                            ),
+                          ),
+                        );
 
-                    final response = await _soundServiceClient.sendSound(
-                      Sound(
-                        soundValues: soundValues,
-                        fileName:
-                            "${deviceInfo.device}-${deviceInfo.brand}-[${DateTime.now().hour}:${DateTime.now().minute}]-${fileName.trim().toLowerCase()}.pcm",
-                      ),
-                    );
+                        final response = await _soundRepository.client.sendSound(
+                          Sound(
+                            soundValues: soundValues,
+                            fileName: "${deviceInfo.device}-${deviceInfo.brand}-[${DateTime.now().hour}:${DateTime.now().minute}]-${fileName.trim().toLowerCase()}.pcm",
+                          ),
+                        );
 
-                    print("Response: $response");
+                        print("Response: $response");
 
-                    await showModalBottomSheet<void>(
-                      context: context,
-                      builder: _thanks,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(16),
-                          topRight: Radius.circular(16),
-                        ),
-                      ),
-                    );
-                  }
+                        await showModalBottomSheet<void>(
+                          context: context,
+                          builder: _thanks,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(16),
+                              topRight: Radius.circular(16),
+                            ),
+                          ),
+                        );
+                      }
 
-                  setState(() {
-                    _isRecording = !_isRecording;
-                  });
-
-                  // setState(() {
-                  //   recognitionResult = response.recognitionResult
-                  //       .map((e) => "${e.soundSourceName} - ${(e.probability * 100).toStringAsFixed(2)}%")
-                  //       .join("\n");
-                  // });
-
-                  //print("Response: $response");
-                },
-                child: Icon(
-                  _isRecording ? Icons.stop_rounded : Icons.mic,
-                  color: Colors.white,
-                  size: 70,
-                ),
-                style: ElevatedButton.styleFrom(
-                  shape: const CircleBorder(),
-                  padding: const EdgeInsets.all(25),
-                  primary: Colors.pinkAccent,
-                  onPrimary: Colors.black87,
-                ),
+                      setState(() {
+                        _isRecording = !_isRecording;
+                      });
+                    },
+                    child: Icon(
+                      _isRecording ? Icons.stop_rounded : Icons.mic,
+                      color: Colors.white,
+                      size: 70,
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      padding: const EdgeInsets.all(25),
+                      primary: Colors.pinkAccent,
+                      onPrimary: Colors.black87,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
-      // child: ElevatedButton(
-      //     child: const Text('showModalBottomSheet'),
-      //     onPressed: () {
-      //       showModalBottomSheet<void>(
-      //         context: context,
-      //         builder: _bottomSheet,
-      //       );
-      //     }),
     );
   }
 
@@ -172,7 +145,6 @@ class _RecorderScreenState extends State<RecorderScreen> {
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
             child: TextField(
-              // controller: _cardNumberTextEditingController,
               onChanged: (newNumber) {
                 print("new value: $newNumber");
                 fileName = newNumber;
@@ -180,8 +152,6 @@ class _RecorderScreenState extends State<RecorderScreen> {
               decoration: InputDecoration(
                 filled: true,
                 border: const OutlineInputBorder(),
-                //labelText: 'Name of object',
-                //hintText: 'Name of object',
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.amber[900]!,
@@ -223,10 +193,6 @@ class _RecorderScreenState extends State<RecorderScreen> {
               ),
             ),
           ),
-          // ElevatedButton(
-          //   child: const Text('Close BottomSheet'),
-          //   onPressed: () => Navigator.pop(context),
-          // )
         ],
       ),
     );
@@ -242,10 +208,7 @@ class _RecorderScreenState extends State<RecorderScreen> {
           child: Text(
             "Thanks for your contribution!",
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 32
-            ),
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 32),
           ),
         ),
         const Padding(
@@ -253,10 +216,7 @@ class _RecorderScreenState extends State<RecorderScreen> {
           child: Text(
             "❤",
             textAlign: TextAlign.center,
-            style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 32
-            ),
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 32),
           ),
         ),
         Padding(
