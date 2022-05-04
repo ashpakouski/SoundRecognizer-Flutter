@@ -46,7 +46,7 @@ class AudioVisualizer extends StatelessWidget {
     return Padding(
       padding: barPadding ?? const EdgeInsets.symmetric(horizontal: 5.0),
       child: AnimatedContainer(
-        duration: animationDuration ?? const Duration(milliseconds: 100),
+        duration: animationDuration ?? const Duration(milliseconds: 500),
         height: max(minHeight ?? 0, intensity * maxHeight),
         width: barWidth,
         decoration: BoxDecoration(
@@ -68,8 +68,8 @@ class AudioVisualizer extends StatelessWidget {
         print("Len: ${currentSublist.length}; CurrentSublist: $currentSublist");
 
         if (currentSublist.isNotEmpty) {
-          normalizedAmplitudes[i] = currentSublist.reduce(max) / maxAmplitude;
-          // normalizedAmplitudes[i] = currentSublist.sum / currentSublist.length / maxAmplitude;
+          //normalizedAmplitudes[i] = currentSublist.reduce(max) / maxAmplitude;
+          normalizedAmplitudes[i] = (currentSublist.sum / currentSublist.length) / maxAmplitude;
         }
 
         normalizedAmplitudes[i] = 1 - normalizedAmplitudes[i];
