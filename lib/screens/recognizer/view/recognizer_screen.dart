@@ -2,9 +2,11 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sound_recognizer/common/component/audio_visualizer.dart';
 import 'package:sound_recognizer/repository/sound_repository.dart';
 import 'package:sound_recognizer/screens/recognizer/cubit/recognizer_cubit.dart';
+import 'package:sound_recognizer/screens/result/result_screen.dart';
 import 'package:sound_recognizer/utils/sound_recorder.dart';
 
 import 'package:sound_recognizer/generated/sound_service.pbgrpc.dart';
@@ -55,19 +57,23 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
         bottomOpacity: 0.0,
         toolbarHeight: 50,
       ),
-      body: BlocBuilder<RecognizerCubit, RecognizerState>(
+      body: BlocConsumer<RecognizerCubit, RecognizerState>(
         bloc: _cubit,
+        listener: (context, state) {
+          if (state is RecognizerJobSuccess) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ResultScreen()),
+            );
+          }
+        },
         builder: (context, state) {
-          if (state is RecognizerInitial) {
-            return _initialScreen(context);
-          } else if (state is RecognizerPreparationInProgress) {
-            return const Text("RecognizerPreparationInProgress");
+          if (state is RecognizerPreparationInProgress) {
+            return _soundRecordingScreen(context);
           } else if (state is RecognizerJobInProgress) {
-            return const Text("RecognizerJobInProgress");
-          } else if (state is RecognizerJobSuccess) {
-            return const Text("RecognizerJobSuccess");
+            return _soundRecognizingScreen(context);
           } else {
-            return Text("Current state: $state");
+            return _initialScreen(context);
           }
         },
       ),
@@ -75,26 +81,46 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
   }
 
   Widget _initialScreen(BuildContext context) {
-    return Column(
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: ElevatedButton(
+              onPressed: () async {
+                context.read<RecognizerCubit>().startRecognition();
+              },
+              child: const Icon(
+                Icons.mic,
+                color: Colors.white,
+                size: 120,
+              ),
+              style: ElevatedButton.styleFrom(
+                shape: const CircleBorder(),
+                padding: const EdgeInsets.all(25),
+                primary: const Color(0xFFFF6C63),
+                onPrimary: Colors.black87,
+              ),
+            ),
+            flex: 5,
+          ),
+          const Expanded(
+            child: Text(
+              "Tap to start recognition",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            ),
+            flex: 2,
+          ),
+        ],
+      ),
+    );
+    /*
+    Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        ElevatedButton(
-          onPressed: () async {
-            context.read<RecognizerCubit>().startRecognition();
-          },
-          child: const Icon(
-            Icons.mic,
-            color: Colors.white,
-            size: 120,
-          ),
-          style: ElevatedButton.styleFrom(
-            shape: const CircleBorder(),
-            padding: const EdgeInsets.all(25),
-            primary: const Color(0xFFFF6C63),
-            onPrimary: Colors.black87,
-          ),
-        ),
+
         ///////////
         // ElevatedButton(
         //   onPressed: () async {
@@ -174,5 +200,137 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
         ),
       ],
     );
+     */
   }
+}
+
+Widget _soundRecognizingScreen(BuildContext context) {
+  return Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: ElevatedButton(
+            onPressed: () async {
+              context.read<RecognizerCubit>().startRecognition();
+            },
+            child: const Icon(
+              Icons.stop_rounded,
+              color: Colors.white,
+              size: 120,
+            ),
+            style: ElevatedButton.styleFrom(
+              shape: const CircleBorder(),
+              padding: const EdgeInsets.all(25),
+              primary: const Color(0xFFFF6C63),
+              onPrimary: Colors.black87,
+            ),
+          ),
+          flex: 5,
+        ),
+        Expanded(
+          child: Column(
+            children: const [
+              Text(
+                "Recognizing sound",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Text(
+                "Wait a little",
+              ),
+            ],
+          ),
+          flex: 2,
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _soundRecordingScreen(BuildContext context) {
+  return Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Stack(
+            children: [
+              const Center(
+                child: SpinKitPulse(
+                  color: Colors.orangeAccent,
+                  size: 450,
+                  duration: Duration(seconds: 3),
+                ),
+              ),
+              Center(
+                child: SpinKitDoubleBounce(
+                  color: Colors.orangeAccent.shade100,
+                  size: 370,
+                  duration: const Duration(seconds: 3),
+                ),
+              ),
+              const Center(
+                child: SpinKitPulse(
+                  color: Colors.orangeAccent,
+                  size: 290,
+                  duration: Duration(seconds: 3),
+                ),
+              ),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    context.read<RecognizerCubit>().forceRecognition();
+                  },
+                  child: const Icon(
+                    Icons.stop_rounded,
+                    color: Colors.white,
+                    size: 120,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(),
+                    padding: const EdgeInsets.all(25),
+                    primary: const Color(0xFFFF6C63),
+                    onPrimary: Colors.black87,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          flex: 5,
+        ),
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Recording sound sample",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              ),
+
+              //SizedBox(height: 20),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: 32),
+              //   child: Text(
+              //     "Recording will be stopped automatically, but it's better to do it manually, if you are trying to recognize some quick sound",
+              //     textAlign: TextAlign.center,
+              //   ),
+              // ),
+
+              const SpinKitThreeBounce(
+                color: Colors.orangeAccent,
+                size: 30,
+              ),
+              Container(),
+            ],
+          ),
+          flex: 2,
+        ),
+      ],
+    ),
+  );
 }

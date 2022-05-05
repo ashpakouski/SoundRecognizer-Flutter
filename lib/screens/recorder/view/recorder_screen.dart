@@ -58,81 +58,84 @@ class _RecorderScreenState extends State<RecorderScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => const ResultScreen()),
-                      // );
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        if (!_isRecording) {
+                          await _soundRecorder.open();
 
-                      if (!_isRecording) {
-                        await _soundRecorder.open();
+                          _soundRecorder.startRecording();
+                        } else {
+                          List<int> soundValues =
+                              await _soundRecorder.stopRecording();
 
-                        _soundRecorder.startRecording();
-                      } else {
-                        List<int> soundValues = await _soundRecorder.stopRecording();
+                          final deviceInfo =
+                              await DeviceInfoPlugin().androidInfo;
 
-                        final deviceInfo = await DeviceInfoPlugin().androidInfo;
-
-                        await showModalBottomSheet<void>(
-                          context: context,
-                          builder: _bottomSheet,
-                          isDismissible: false,
-                          isScrollControlled: true,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(16),
-                              topRight: Radius.circular(16),
+                          await showModalBottomSheet<void>(
+                            context: context,
+                            builder: _bottomSheet,
+                            isDismissible: false,
+                            isScrollControlled: true,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(16),
+                                topRight: Radius.circular(16),
+                              ),
                             ),
-                          ),
-                        );
+                          );
 
-                        final response =
-                            await _soundRepository.client.sendSound(
-                          Sound(
-                            soundValues: soundValues,
-                            fileName:
-                                "${deviceInfo.device}-${deviceInfo.brand}-[${DateTime.now().hour}:${DateTime.now().minute}]-${fileName.trim().toLowerCase()}.pcm",
-                          ),
-                        );
-
-                        print("Response: $response");
-
-                        await showModalBottomSheet<void>(
-                          context: context,
-                          builder: _thanks,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(16),
-                              topRight: Radius.circular(16),
+                          final response =
+                              await _soundRepository.client.sendSound(
+                            Sound(
+                              soundValues: soundValues,
+                              fileName:
+                                  "${deviceInfo.device}-${deviceInfo.brand}-[${DateTime.now().hour}:${DateTime.now().minute}]-${fileName.trim().toLowerCase()}.pcm",
                             ),
-                          ),
-                        );
-                      }
+                          );
 
-                      setState(() {
-                        _isRecording = !_isRecording;
-                      });
-                    },
-                    child: Icon(
-                      _isRecording ? Icons.stop_rounded : Icons.mic,
-                      color: Colors.white,
-                      size: 120,
+                          print("Response: $response");
+
+                          await showModalBottomSheet<void>(
+                            context: context,
+                            builder: _thanks,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(16),
+                                topRight: Radius.circular(16),
+                              ),
+                            ),
+                          );
+                        }
+
+                        setState(() {
+                          _isRecording = !_isRecording;
+                        });
+                      },
+                      child: Icon(
+                        _isRecording ? Icons.stop_rounded : Icons.mic,
+                        color: Colors.white,
+                        size: 120,
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        shape: const CircleBorder(),
+                        padding: const EdgeInsets.all(25),
+                        primary: const Color(0xFFFF6C63),
+                        onPrimary: Colors.black87,
+                      ),
                     ),
-                    style: ElevatedButton.styleFrom(
-                      shape: const CircleBorder(),
-                      padding: const EdgeInsets.all(25),
-                      primary: const Color(0xFFFF6C63),
-                      onPrimary: Colors.black87,
-                    ),
+                    flex: 5,
                   ),
-                  const SizedBox(height: 150),
-                  const Text(
-                    "Tap to start recording",
-                    style: TextStyle(
-                      fontSize: 20,
+                  const Expanded(
+                    child: Text(
+                      "Tap to start recording",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500
+                      ),
                     ),
-                  )
+                    flex: 2,
+                  ),
                 ],
               ),
             ),
