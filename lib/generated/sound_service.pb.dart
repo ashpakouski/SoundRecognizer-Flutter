@@ -9,6 +9,10 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import 'sound_service.pbenum.dart';
+
+export 'sound_service.pbenum.dart';
+
 class Sound extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Sound', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'com.shpakovskiy.soundrecognizer'), createEmptyInstance: create)
     ..a<$core.List<$core.int>>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'soundValues', $pb.PbFieldType.OY)
@@ -178,19 +182,65 @@ class RecognizedSound extends $pb.GeneratedMessage {
   void clearProbability() => clearField(2);
 }
 
-class RecognitionResult extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RecognitionResult', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'com.shpakovskiy.soundrecognizer'), createEmptyInstance: create)
+class RecognizedSounds extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RecognizedSounds', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'com.shpakovskiy.soundrecognizer'), createEmptyInstance: create)
     ..pc<RecognizedSound>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'recognitionResult', $pb.PbFieldType.PM, protoName: 'recognitionResult', subBuilder: RecognizedSound.create)
     ..hasRequiredFields = false
   ;
 
-  RecognitionResult._() : super();
-  factory RecognitionResult({
+  RecognizedSounds._() : super();
+  factory RecognizedSounds({
     $core.Iterable<RecognizedSound>? recognitionResult,
   }) {
     final _result = create();
     if (recognitionResult != null) {
       _result.recognitionResult.addAll(recognitionResult);
+    }
+    return _result;
+  }
+  factory RecognizedSounds.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory RecognizedSounds.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  RecognizedSounds clone() => RecognizedSounds()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  RecognizedSounds copyWith(void Function(RecognizedSounds) updates) => super.copyWith((message) => updates(message as RecognizedSounds)) as RecognizedSounds; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static RecognizedSounds create() => RecognizedSounds._();
+  RecognizedSounds createEmptyInstance() => create();
+  static $pb.PbList<RecognizedSounds> createRepeated() => $pb.PbList<RecognizedSounds>();
+  @$core.pragma('dart2js:noInline')
+  static RecognizedSounds getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RecognizedSounds>(create);
+  static RecognizedSounds? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<RecognizedSound> get recognitionResult => $_getList(0);
+}
+
+class RecognitionResult extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RecognitionResult', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'com.shpakovskiy.soundrecognizer'), createEmptyInstance: create)
+    ..e<RecognitionResult_RecognitionStatus>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'recognitionStatus', $pb.PbFieldType.OE, protoName: 'recognitionStatus', defaultOrMaker: RecognitionResult_RecognitionStatus.SUCCESS, valueOf: RecognitionResult_RecognitionStatus.valueOf, enumValues: RecognitionResult_RecognitionStatus.values)
+    ..aOM<RecognizedSounds>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'recognizedSounds', subBuilder: RecognizedSounds.create)
+    ..hasRequiredFields = false
+  ;
+
+  RecognitionResult._() : super();
+  factory RecognitionResult({
+    RecognitionResult_RecognitionStatus? recognitionStatus,
+    RecognizedSounds? recognizedSounds,
+  }) {
+    final _result = create();
+    if (recognitionStatus != null) {
+      _result.recognitionStatus = recognitionStatus;
+    }
+    if (recognizedSounds != null) {
+      _result.recognizedSounds = recognizedSounds;
     }
     return _result;
   }
@@ -216,6 +266,23 @@ class RecognitionResult extends $pb.GeneratedMessage {
   static RecognitionResult? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<RecognizedSound> get recognitionResult => $_getList(0);
+  RecognitionResult_RecognitionStatus get recognitionStatus => $_getN(0);
+  @$pb.TagNumber(1)
+  set recognitionStatus(RecognitionResult_RecognitionStatus v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasRecognitionStatus() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearRecognitionStatus() => clearField(1);
+
+  @$pb.TagNumber(2)
+  RecognizedSounds get recognizedSounds => $_getN(1);
+  @$pb.TagNumber(2)
+  set recognizedSounds(RecognizedSounds v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasRecognizedSounds() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearRecognizedSounds() => clearField(2);
+  @$pb.TagNumber(2)
+  RecognizedSounds ensureRecognizedSounds() => $_ensure(1);
 }
 
