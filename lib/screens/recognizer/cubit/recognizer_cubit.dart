@@ -35,13 +35,22 @@ class RecognizerCubit extends Cubit<RecognizerState> {
     emit(RecognizerJobInProgress());
 
     final rawSound = await _soundRecorder.stopRecording();
-    final response = await _soundRepository.client.recognizeSound(
-      Sound(
-        soundValues: rawSound,
-        fileName: "Request-${DateTime.now().millisecondsSinceEpoch}.pcm",
-      ),
-    );
 
-    emit(RecognizerJobSuccess());
+    try {
+      final RecognitionResult response = await _soundRepository.client.recognizeSound(
+        Sound(
+          soundValues: rawSound,
+          fileName: "Request-${DateTime.now().millisecondsSinceEpoch}.pcm",
+        ),
+      );
+
+      if (response.recognitionStatus == RecognitionResult_RecognitionStatus.SUCCESS) {
+        emit(RecognizerJobSuccess(response));
+      } else {
+        emit(RecognizerJobFailure());
+      }
+    } catch (e) {
+      emit(RecognizerJobFailure());
+    }
   }
 }

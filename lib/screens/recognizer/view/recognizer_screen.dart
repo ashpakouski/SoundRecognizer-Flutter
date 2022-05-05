@@ -1,15 +1,9 @@
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:sound_recognizer/common/component/audio_visualizer.dart';
-import 'package:sound_recognizer/repository/sound_repository.dart';
 import 'package:sound_recognizer/screens/recognizer/cubit/recognizer_cubit.dart';
 import 'package:sound_recognizer/screens/result/result_screen.dart';
-import 'package:sound_recognizer/utils/sound_recorder.dart';
-
-import 'package:sound_recognizer/generated/sound_service.pbgrpc.dart';
 
 class RecognizerScreen extends StatefulWidget {
   const RecognizerScreen({Key? key}) : super(key: key);
@@ -19,17 +13,6 @@ class RecognizerScreen extends StatefulWidget {
 }
 
 class _RecognizerScreenState extends State<RecognizerScreen> {
-  final SoundRecorder _soundRecorder = SoundRecorder();
-  final List<int> currentAudioData = [];
-
-  int lastFrame = 0;
-  int thisFrame = DateTime.now().millisecondsSinceEpoch;
-
-  final SoundRepository _soundRepository = SoundRepository();
-
-  String? recognitionResult =
-      "Просто тыкни кнопку выше и жди 10-15 секунд, тут ещё ничего не готово 🙂";
-  List<double> doubleSounds = [];
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +46,9 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
           if (state is RecognizerJobSuccess) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const ResultScreen()),
+              MaterialPageRoute(builder: (context) {
+                return ResultScreen(recognitionResult: state.recognitionResult);
+              }),
             );
           }
         },
