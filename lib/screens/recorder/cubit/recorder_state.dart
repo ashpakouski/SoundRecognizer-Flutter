@@ -5,12 +5,14 @@ abstract class RecorderState {}
 
 class RecorderInitial extends RecorderState { }
 
-class RecorderJobInProgress extends RecorderState {}
+class RecordingInProgress extends RecorderState {}
 
-class RecorderJobSuccess extends RecorderState {
-  final List<int> rawSoundValues;
+class RecordingSuccess extends RecorderState { }
 
-  RecorderJobSuccess(this.rawSoundValues);
-}
+class RecordingFailure extends RecorderState { }
 
-class RecorderJobFailure extends RecorderState { }
+class RecordingProcessingInProgress extends RecorderState { }
+
+class RecordingProcessingSuccess extends RecorderState { }
+
+class RecordingProcessingFailure extends RecorderState { }

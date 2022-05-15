@@ -41,8 +41,9 @@ class ResultScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  for (var recognizedSound in recognitionResult.recognizedSounds.recognitionResult)
-                    _sourceName(recognizedSound.soundSourceName),
+                  _sourceName("Fridge")
+                  //for (var recognizedSound in recognitionResult.recognizedSounds.recognitionResult)
+                  //  _sourceName(recognizedSound.soundSourceName),
                 ],
               ),
             ),

@@ -1,13 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:sound_recognizer/generated/sound_service.pbgrpc.dart';
-import 'package:sound_recognizer/repository/sound_repository.dart';
 import 'package:sound_recognizer/screens/recorder/cubit/recorder_cubit.dart';
-
-import 'package:sound_recognizer/utils/sound_recorder.dart';
-import 'dart:io' show Platform;
 
 class RecorderScreen extends StatefulWidget {
   const RecorderScreen({Key? key}) : super(key: key);
@@ -17,13 +14,6 @@ class RecorderScreen extends StatefulWidget {
 }
 
 class _RecorderScreenState extends State<RecorderScreen> {
-  // final SoundRecorder _soundRecorder = SoundRecorder();
-
-  // bool _isRecording = false;
-  // String fileName = "Default";
-
-  // final SoundRepository _soundRepository = SoundRepository();
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -48,11 +38,59 @@ class _RecorderScreenState extends State<RecorderScreen> {
         bottomOpacity: 0.0,
         toolbarHeight: 50,
       ),
-      body: BlocBuilder<RecorderCubit, RecorderState>(
+      body: BlocConsumer<RecorderCubit, RecorderState>(
         bloc: context.watch<RecorderCubit>(),
+        listener: (context, state) async {
+          if (state is RecordingSuccess) {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return StatefulBuilder(
+                    builder: (BuildContext context, StateSetter setState) {
+                  return _bottomSheet(context);
+                });
+              },
+              isDismissible: false,
+              isScrollControlled: true,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
+                ),
+              ),
+            ).then((recordingName) {
+              context
+                  .read<RecorderCubit>()
+                  .sendRecording(withName: recordingName);
+            });
+          } else if (state is RecordingProcessingSuccess) {
+            await showModalBottomSheet<void>(
+              context: context,
+              builder: _thanks,
+              isDismissible: false,
+              isScrollControlled: true,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
+                ),
+              ),
+            );
+          }
+        },
         builder: (context, state) {
-          if (state is RecorderJobInProgress) {
-            return Text("");
+          if (state is RecordingInProgress) {
+            return _recordingInProgressScreen(context);
+          } else if (state is RecordingSuccess) {
+            return _initialScreen(context);
+          } else if (state is RecordingFailure) {
+            return _initialScreen(context);
+          } else if (state is RecordingProcessingInProgress) {
+            return _recordingInProgressScreen(context);
+          } else if (state is RecordingProcessingSuccess) {
+            return _initialScreen(context);
+          } else if (state is RecordingProcessingFailure) {
+            return _initialScreen(context);
           } else {
             return _initialScreen(context);
             print(">>> Recorder state: $state");
@@ -157,11 +195,14 @@ class _RecorderScreenState extends State<RecorderScreen> {
     );
   }
 
+  String? errorText;
+
   Widget _bottomSheet(BuildContext context) {
+    TextEditingController _controller = TextEditingController();
+
     return Container(
       padding: EdgeInsets.fromLTRB(
-          0, 0, 0, MediaQuery.of(context).viewInsets.bottom
-      ),
+          0, 0, 0, MediaQuery.of(context).viewInsets.bottom),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
@@ -176,13 +217,11 @@ class _RecorderScreenState extends State<RecorderScreen> {
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
             child: TextField(
-              onChanged: (newNumber) {
-                print("new value: $newNumber");
-                //fileName = newNumber;
-              },
+              controller: _controller,
               decoration: InputDecoration(
                 filled: true,
                 border: const OutlineInputBorder(),
+                //errorText: "This field should not be empty",
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.amber[900]!,
@@ -198,9 +237,17 @@ class _RecorderScreenState extends State<RecorderScreen> {
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                //borderRadius: BorderRadius.circular(16),
                 onTap: () {
-                  Navigator.pop(context);
+                  if (_controller.text != null && _controller.text.isNotEmpty) {
+                    Navigator.pop(
+                      context,
+                      "${Platform.operatingSystem}-[${DateTime.now().hour}:${DateTime.now().minute}]-${_controller.text.trim().toLowerCase()}.pcm",
+                    );
+                  } else {
+                    setState(() {
+                      errorText = "What the fuck?";
+                    });
+                  }
                 },
                 child: Ink(
                   decoration: BoxDecoration(
@@ -294,7 +341,7 @@ Widget _initialScreen(BuildContext context) {
         Expanded(
           child: ElevatedButton(
             onPressed: () async {
-              // context.read<RecognizerCubit>().startRecognition();
+              context.read<RecorderCubit>().startRecording();
             },
             child: const Icon(
               Icons.mic,
@@ -322,7 +369,7 @@ Widget _initialScreen(BuildContext context) {
   );
 }
 
-Widget _soundRecordingScreen(BuildContext context) {
+Widget _recordingInProgressScreen(BuildContext context) {
   return Center(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -334,7 +381,7 @@ Widget _soundRecordingScreen(BuildContext context) {
               Center(
                 child: ElevatedButton(
                   onPressed: () async {
-                    //context.read<RecognizerCubit>().forceRecognition();
+                    context.read<RecorderCubit>().stopRecording();
                   },
                   child: const Icon(
                     Icons.stop_rounded,
