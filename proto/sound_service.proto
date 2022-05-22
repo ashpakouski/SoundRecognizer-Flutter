@@ -25,6 +25,16 @@ message RecognizedSound {
   double probability = 2;
 }
 
-message RecognitionResult {
+message RecognizedSounds {
   repeated RecognizedSound recognitionResult = 1;
+}
+
+message RecognitionResult {
+  enum RecognitionStatus {
+    SUCCESS = 0;
+    FAILURE = 1;
+  }
+
+  RecognitionStatus recognitionStatus = 1;
+  RecognizedSounds recognized_sounds = 2;
 }

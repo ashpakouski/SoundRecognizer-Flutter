@@ -40,13 +40,34 @@ const RecognizedSound$json = const {
 
 /// Descriptor for `RecognizedSound`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List recognizedSoundDescriptor = $convert.base64Decode('Cg9SZWNvZ25pemVkU291bmQSKgoRc291bmRfc291cmNlX25hbWUYASABKAlSD3NvdW5kU291cmNlTmFtZRIgCgtwcm9iYWJpbGl0eRgCIAEoAVILcHJvYmFiaWxpdHk=');
-@$core.Deprecated('Use recognitionResultDescriptor instead')
-const RecognitionResult$json = const {
-  '1': 'RecognitionResult',
+@$core.Deprecated('Use recognizedSoundsDescriptor instead')
+const RecognizedSounds$json = const {
+  '1': 'RecognizedSounds',
   '2': const [
     const {'1': 'recognitionResult', '3': 1, '4': 3, '5': 11, '6': '.com.shpakovskiy.soundrecognizer.RecognizedSound', '10': 'recognitionResult'},
   ],
 };
 
+/// Descriptor for `RecognizedSounds`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List recognizedSoundsDescriptor = $convert.base64Decode('ChBSZWNvZ25pemVkU291bmRzEl4KEXJlY29nbml0aW9uUmVzdWx0GAEgAygLMjAuY29tLnNocGFrb3Zza2l5LnNvdW5kcmVjb2duaXplci5SZWNvZ25pemVkU291bmRSEXJlY29nbml0aW9uUmVzdWx0');
+@$core.Deprecated('Use recognitionResultDescriptor instead')
+const RecognitionResult$json = const {
+  '1': 'RecognitionResult',
+  '2': const [
+    const {'1': 'recognitionStatus', '3': 1, '4': 1, '5': 14, '6': '.com.shpakovskiy.soundrecognizer.RecognitionResult.RecognitionStatus', '10': 'recognitionStatus'},
+    const {'1': 'recognized_sounds', '3': 2, '4': 1, '5': 11, '6': '.com.shpakovskiy.soundrecognizer.RecognizedSounds', '10': 'recognizedSounds'},
+  ],
+  '4': const [RecognitionResult_RecognitionStatus$json],
+};
+
+@$core.Deprecated('Use recognitionResultDescriptor instead')
+const RecognitionResult_RecognitionStatus$json = const {
+  '1': 'RecognitionStatus',
+  '2': const [
+    const {'1': 'SUCCESS', '2': 0},
+    const {'1': 'FAILURE', '2': 1},
+  ],
+};
+
 /// Descriptor for `RecognitionResult`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List recognitionResultDescriptor = $convert.base64Decode('ChFSZWNvZ25pdGlvblJlc3VsdBJeChFyZWNvZ25pdGlvblJlc3VsdBgBIAMoCzIwLmNvbS5zaHBha292c2tpeS5zb3VuZHJlY29nbml6ZXIuUmVjb2duaXplZFNvdW5kUhFyZWNvZ25pdGlvblJlc3VsdA==');
+final $typed_data.Uint8List recognitionResultDescriptor = $convert.base64Decode('ChFSZWNvZ25pdGlvblJlc3VsdBJyChFyZWNvZ25pdGlvblN0YXR1cxgBIAEoDjJELmNvbS5zaHBha292c2tpeS5zb3VuZHJlY29nbml6ZXIuUmVjb2duaXRpb25SZXN1bHQuUmVjb2duaXRpb25TdGF0dXNSEXJlY29nbml0aW9uU3RhdHVzEl4KEXJlY29nbml6ZWRfc291bmRzGAIgASgLMjEuY29tLnNocGFrb3Zza2l5LnNvdW5kcmVjb2duaXplci5SZWNvZ25pemVkU291bmRzUhByZWNvZ25pemVkU291bmRzIi0KEVJlY29nbml0aW9uU3RhdHVzEgsKB1NVQ0NFU1MQABILCgdGQUlMVVJFEAE=');

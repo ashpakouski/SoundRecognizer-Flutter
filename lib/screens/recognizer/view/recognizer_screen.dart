@@ -1,11 +1,9 @@
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sound_recognizer/repository/sound_repository.dart';
-import 'package:sound_recognizer/utils/sound_recorder.dart';
-
-import 'package:sound_recognizer/component/audio_visualizer.dart';
-import 'package:sound_recognizer/generated/sound_service.pbgrpc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:sound_recognizer/screens/recognizer/cubit/recognizer_cubit.dart';
+import 'package:sound_recognizer/screens/result/result_screen.dart';
 
 class RecognizerScreen extends StatefulWidget {
   const RecognizerScreen({Key? key}) : super(key: key);
@@ -15,22 +13,14 @@ class RecognizerScreen extends StatefulWidget {
 }
 
 class _RecognizerScreenState extends State<RecognizerScreen> {
-  final SoundRecorder _soundRecorder = SoundRecorder();
-  final List<int> currentAudioData = [];
-
-  int lastFrame = 0;
-  int thisFrame = DateTime.now().millisecondsSinceEpoch;
-
-  final SoundRepository _soundRepository = SoundRepository();
-
-  String? recognitionResult = "Просто тыкни кнопку выше и жди 10-15 секунд, тут ещё ничего не готово 🙂";
-  List<double> doubleSounds = [];
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
+
+    final _cubit = context.watch<RecognizerCubit>();
 
     return Scaffold(
       appBar: AppBar(
@@ -50,84 +40,187 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
         bottomOpacity: 0.0,
         toolbarHeight: 50,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      body: BlocConsumer<RecognizerCubit, RecognizerState>(
+        bloc: _cubit,
+        listener: (context, state) {
+          if (state is RecognizerJobSuccess) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return ResultScreen(recognitionResult: state.recognitionResult);
+              }),
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state is RecognizerPreparationInProgress) {
+            return _soundRecordingScreen(context);
+          } else if (state is RecognizerJobInProgress) {
+            return _soundRecognizingScreen(context);
+          } else {
+            return _initialScreen(context);
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _initialScreen(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ElevatedButton(
-            onPressed: () async {
-              setState(() {
-                recognitionResult = null;
-              });
-
-              await _soundRecorder.open();
-
-              List<int> soundValues = await _soundRecorder.recordSound(
-                duration: const Duration(seconds: 10),
-                onNewData: (newData) {
-                  setState(() {
-                    currentAudioData.clear();
-                    currentAudioData.addAll(newData);
-                  });
-                },
-              );
-
-              final deviceInfo = await DeviceInfoPlugin().androidInfo;
-
-              final response = await _soundRepository.client.recognizeSound(
-                Sound(
-                    soundValues: soundValues,
-                    fileName:
-                        "Request-${deviceInfo.device}-${deviceInfo.brand}-[${DateTime.now().hour}:${DateTime.now().minute}].pcm"
-                    //"Request-Android-[${DateTime.now().hour}:${DateTime.now().minute}].pcm",
-                    ),
-              );
-
-              setState(() {
-                recognitionResult = response.recognitionResult
-                    .map((e) => "${e.soundSourceName} - ${(e.probability * 100).toStringAsFixed(2)}%")
-                    .join("\n");
-              });
-
-              print("Response: $response");
-            },
-            child: const Icon(
-              Icons.mic,
-              color: Colors.white,
-              size: 70,
+          Expanded(
+            child: ElevatedButton(
+              onPressed: () async {
+                context.read<RecognizerCubit>().startRecognition();
+              },
+              child: const Icon(
+                Icons.mic,
+                color: Colors.white,
+                size: 120,
+              ),
+              style: ElevatedButton.styleFrom(
+                shape: const CircleBorder(),
+                padding: const EdgeInsets.all(25),
+                primary: const Color(0xFFFF6C63),
+                onPrimary: Colors.black87,
+              ),
             ),
-            style: ElevatedButton.styleFrom(
-              shape: const CircleBorder(),
-              padding: const EdgeInsets.all(25),
-              primary: Colors.pinkAccent,
-              onPrimary: Colors.black87,
-            ),
+            flex: 5,
           ),
-          recognitionResult != null
-              ? Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Text(recognitionResult!,
-                      style: const TextStyle(fontSize: 25),
-                      textAlign: TextAlign.center),
-                )
-              : const Text("Nothing to show"),
-          SizedBox(
-            height: 100,
-            child: AudioVisualizer(
-              soundValues: currentAudioData,
-              barsNumber: 15,
-              maxAmplitude: 255,
-              maxHeight: 90,
-              minHeight: 10,
-              animationDuration: const Duration(milliseconds: 100),
-              barWidth: 5,
-              barRadius: BorderRadius.circular(5),
-              barPadding: const EdgeInsets.symmetric(horizontal: 2),
-              barColor: Colors.green,
+          const Expanded(
+            child: Text(
+              "Tap to start recognition",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
             ),
+            flex: 2,
           ),
         ],
       ),
     );
   }
+}
+
+Widget _soundRecognizingScreen(BuildContext context) {
+  return Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: ElevatedButton(
+            onPressed: () async {
+              context.read<RecognizerCubit>().startRecognition();
+            },
+            child: const Icon(
+              Icons.stop_rounded,
+              color: Colors.white,
+              size: 120,
+            ),
+            style: ElevatedButton.styleFrom(
+              shape: const CircleBorder(),
+              padding: const EdgeInsets.all(25),
+              primary: const Color(0xFFFF6C63),
+              onPrimary: Colors.black87,
+            ),
+          ),
+          flex: 5,
+        ),
+        Expanded(
+          child: Column(
+            children: const [
+              Text(
+                "Recognizing sound",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Text(
+                "Wait a little",
+              ),
+            ],
+          ),
+          flex: 2,
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _soundRecordingScreen(BuildContext context) {
+  return Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Stack(
+            children: [
+              const Center(
+                child: SpinKitPulse(
+                  color: Colors.orangeAccent,
+                  size: 450,
+                  duration: Duration(seconds: 3),
+                ),
+              ),
+              Center(
+                child: SpinKitDoubleBounce(
+                  color: Colors.orangeAccent.shade100,
+                  size: 370,
+                  duration: const Duration(seconds: 3),
+                ),
+              ),
+              const Center(
+                child: SpinKitPulse(
+                  color: Colors.orangeAccent,
+                  size: 290,
+                  duration: Duration(seconds: 3),
+                ),
+              ),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    context.read<RecognizerCubit>().forceRecognition();
+                  },
+                  child: const Icon(
+                    Icons.stop_rounded,
+                    color: Colors.white,
+                    size: 120,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(),
+                    padding: const EdgeInsets.all(25),
+                    primary: const Color(0xFFFF6C63),
+                    onPrimary: Colors.black87,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          flex: 5,
+        ),
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Recording sound sample",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              ),
+
+              const SpinKitThreeBounce(
+                color: Colors.orangeAccent,
+                size: 30,
+              ),
+              Container(),
+            ],
+          ),
+          flex: 2,
+        ),
+      ],
+    ),
+  );
 }
