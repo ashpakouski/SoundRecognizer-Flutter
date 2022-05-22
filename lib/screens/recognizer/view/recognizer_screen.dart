@@ -100,92 +100,6 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
         ],
       ),
     );
-    /*
-    Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-
-        ///////////
-        // ElevatedButton(
-        //   onPressed: () async {
-        //     // _cubit.
-        //
-        //     setState(() {
-        //       recognitionResult = null;
-        //     });
-        //
-        //     await _soundRecorder.open();
-        //
-        //     List<int> soundValues = await _soundRecorder.recordSound(
-        //       duration: const Duration(seconds: 10),
-        //       onNewData: (newData) {
-        //         setState(() {
-        //           currentAudioData.clear();
-        //           currentAudioData.addAll(newData);
-        //         });
-        //       },
-        //     );
-        //
-        //     final deviceInfo = await DeviceInfoPlugin().androidInfo;
-        //
-        //     final response = await _soundRepository.client.recognizeSound(
-        //       Sound(
-        //         soundValues: soundValues,
-        //         fileName:
-        //             "Request-${deviceInfo.device}-${deviceInfo.brand}-[${DateTime.now().hour}:${DateTime.now().minute}].pcm",
-        //       ),
-        //     );
-        //
-        //     /*
-        //           setState(() {
-        //             recognitionResult = response.recognitionResult
-        //                 .map((e) =>
-        //                     "${e.soundSourceName} - ${(e.probability * 100).toStringAsFixed(2)}%")
-        //                 .join("\n");
-        //           });
-        //
-        //           print("Response: $response");
-        //            */
-        //   },
-        //   child: const Icon(
-        //     Icons.mic,
-        //     color: Colors.white,
-        //     size: 70,
-        //   ),
-        //   style: ElevatedButton.styleFrom(
-        //     shape: const CircleBorder(),
-        //     padding: const EdgeInsets.all(25),
-        //     primary: Colors.pinkAccent,
-        //     onPrimary: Colors.black87,
-        //   ),
-        // ),
-        recognitionResult != null
-            ? Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(recognitionResult!,
-                    style: const TextStyle(fontSize: 25),
-                    textAlign: TextAlign.center),
-              )
-            : const Text("Nothing to show"),
-        SizedBox(
-          height: 100,
-          child: AudioVisualizer(
-            soundValues: currentAudioData,
-            barsNumber: 15,
-            maxAmplitude: 255,
-            maxHeight: 90,
-            minHeight: 10,
-            animationDuration: const Duration(milliseconds: 100),
-            barWidth: 5,
-            barRadius: BorderRadius.circular(5),
-            barPadding: const EdgeInsets.symmetric(horizontal: 2),
-            barColor: Colors.green,
-          ),
-        ),
-      ],
-    );
-     */
   }
 }
 
@@ -296,15 +210,6 @@ Widget _soundRecordingScreen(BuildContext context) {
                 "Recording sound sample",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
-
-              //SizedBox(height: 20),
-              // Padding(
-              //   padding: EdgeInsets.symmetric(horizontal: 32),
-              //   child: Text(
-              //     "Recording will be stopped automatically, but it's better to do it manually, if you are trying to recognize some quick sound",
-              //     textAlign: TextAlign.center,
-              //   ),
-              // ),
 
               const SpinKitThreeBounce(
                 color: Colors.orangeAccent,

@@ -42,6 +42,12 @@ flutter:
     - family: Nunito
       fonts:
         - asset: assets/fonts/Nunito-SemiBold.ttf
+    - family: Mukta
+      fonts:
+        - asset: assets/fonts/Mukta-Bold.ttf
+        - asset: assets/fonts/Mukta-SemiBold.ttf
+        - asset: assets/fonts/Mukta-Medium.ttf
+        - asset: assets/fonts/Mukta-Regular.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
