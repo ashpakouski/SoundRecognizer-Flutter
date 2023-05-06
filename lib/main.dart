@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sound_recognizer/home_screen.dart';
+import 'package:sound_recognizer/screens/home/view/root_screen.dart';
 import 'package:sound_recognizer/screens/recognizer/cubit/recognizer_cubit.dart';
 import 'package:sound_recognizer/screens/recorder/cubit/recorder_cubit.dart';
 
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) => RecognizerCubit(),
           ),
         ],
-        child: const HomeScreen(),
+        child: const RootScreen(),
       ),
     );
   }
