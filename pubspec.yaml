@@ -21,6 +21,7 @@ dependencies:
   flutter_spinkit: ^5.1.0
   bloc: ^8.1.1
   flutter_bloc: ^8.1.2
+  dio: ^5.1.2
 
 dev_dependencies:
   flutter_test:

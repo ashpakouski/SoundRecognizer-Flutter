@@ -38,12 +38,12 @@ class RecorderCubit extends Cubit<RecorderState> {
 
   void sendRecording({required String withName}) {
     if (_lastSound != null) {
-      _soundRepository.client.sendSound(
-          Sound(soundValues: _lastSound, fileName: withName),
-      ).then(
-        (_) => emit(RecordingProcessingSuccess()),
-        onError: (error) => emit(RecordingProcessingFailure()),
-      );
+      _soundRepository
+          .postSound(Sound(soundValues: _lastSound, fileName: withName))
+          .then(
+            (_) => emit(RecordingProcessingSuccess()),
+            onError: (error) => emit(RecordingProcessingFailure()),
+          );
     } else {
       emit(RecordingProcessingFailure());
     }
