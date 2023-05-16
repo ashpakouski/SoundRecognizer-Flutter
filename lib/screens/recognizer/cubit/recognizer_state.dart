@@ -12,7 +12,7 @@ class RecognizerJobInProgress extends RecognizerState {}
 class RecognizerJobFailure extends RecognizerState {}
 
 class RecognizerJobSuccess extends RecognizerState {
-  final RecognitionResult recognitionResult;
+  // final RecognitionResult recognitionResult;
 
-  RecognizerJobSuccess(this.recognitionResult);
+  RecognizerJobSuccess();
 }

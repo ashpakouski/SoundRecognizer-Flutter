@@ -2,29 +2,17 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:grpc/grpc.dart';
-import 'package:sound_recognizer/generated/sound_service.pbgrpc.dart';
+import 'package:sound_recognizer/model/sound_recording.dart';
 
 class SoundRepository {
-  final ClientChannel _grpcClientChannel = ClientChannel(
-    // "192.168.100.8",
-    "113.30.188.201",
-    // "192.168.100.2",
-    port: 8099,
-    options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
-  );
-
   final _dio = Dio();
 
-  Future<void> postSound(Sound sound) async {
-    // final file = File(fileUri);
-
-    // fileName ??= file.path.split(Platform.pathSeparator).last;
-
+  Future<void> postSound(SoundRecording soundRecording) async {
     FormData data = FormData.fromMap({
       "sound": MultipartFile.fromBytes(
-        Uint8List.fromList(sound.soundValues),
-        filename: "sound-${DateTime.now().millisecondsSinceEpoch}",
+        soundRecording.rawBytes,
+        filename:
+            "sound-${soundRecording.name}-${DateTime.now().millisecondsSinceEpoch}",
       ),
       "data": "some other data",
     });
@@ -41,9 +29,4 @@ class SoundRepository {
           "Failed to post sound: ${e.response} ${e.response?.statusCode}");
     }
   }
-
-  late final SoundServiceClient _soundServiceClient =
-      SoundServiceClient(_grpcClientChannel);
-
-  SoundServiceClient get client => _soundServiceClient;
 }

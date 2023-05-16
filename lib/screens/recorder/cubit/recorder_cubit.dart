@@ -1,6 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:sound_recognizer/generated/sound_service.pb.dart';
+import 'package:sound_recognizer/model/sound_recording.dart';
 import 'package:sound_recognizer/repository/sound_repository.dart';
 import 'package:sound_recognizer/utils/sound_recorder.dart';
 
@@ -39,7 +41,8 @@ class RecorderCubit extends Cubit<RecorderState> {
   void sendRecording({required String withName}) {
     if (_lastSound != null) {
       _soundRepository
-          .postSound(Sound(soundValues: _lastSound, fileName: withName))
+          .postSound(SoundRecording(
+              rawBytes: Uint8List.fromList(_lastSound!), name: withName))
           .then(
             (_) => emit(RecordingProcessingSuccess()),
             onError: (error) => emit(RecordingProcessingFailure()),

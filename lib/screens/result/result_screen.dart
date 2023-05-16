@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:sound_recognizer/generated/sound_service.pb.dart';
 
 class ResultScreen extends StatelessWidget {
-  final RecognitionResult recognitionResult;
+  // final RecognitionResult recognitionResult;
 
   const ResultScreen({
     Key? key,
-    required this.recognitionResult,
+    // required this.recognitionResult,
   }) : super(key: key);
 
   @override
@@ -36,7 +35,8 @@ class ResultScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
-            child: Center(child: _recognitionResultView(recognitionResult)),
+            // child: Center(child: _recognitionResultView(recognitionResult)),
+            child: Container(),
           ),
           Padding(
             padding: const EdgeInsets.all(16),
@@ -70,55 +70,55 @@ class ResultScreen extends StatelessWidget {
     );
   }
 
-  Widget _recognitionResultView(RecognitionResult recognitionResult) {
-    final _recognitionStatus = recognitionResult.recognitionStatus;
-    final _recognitionResult =
-        recognitionResult.recognizedSounds.recognitionResult;
-
-    if (_recognitionStatus == RecognitionResult_RecognitionStatus.SUCCESS &&
-        _recognitionResult.isNotEmpty) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Text(
-            "Sounds like",
-            style: TextStyle(fontSize: 24, fontFamily: 'Mukta'),
-          ),
-          Text(
-            _recognitionResult.first.soundSourceName,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 42,
-              fontFamily: 'Mukta',
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(
-            height: 86,
-          ),
-          const Text(
-            "Less probable variants",
-            style: TextStyle(fontSize: 16, fontFamily: 'Mukta'),
-          ),
-          for (var recognizedSound in _recognitionResult.skip(1))
-            Text(
-              recognizedSound.soundSourceName,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w400,
-                fontFamily: 'Mukta',
-              ),
-            ),
-        ],
-      );
-    } else {
-      return const Text(
-        "Recognition failed of match couldn't be found 😓",
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 21),
-      );
-    }
-  }
+// Widget _recognitionResultView(RecognitionResult recognitionResult) {
+//   final _recognitionStatus = recognitionResult.recognitionStatus;
+//   final _recognitionResult =
+//       recognitionResult.recognizedSounds.recognitionResult;
+//
+//   if (_recognitionStatus == RecognitionResult_RecognitionStatus.SUCCESS &&
+//       _recognitionResult.isNotEmpty) {
+//     return Column(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       crossAxisAlignment: CrossAxisAlignment.center,
+//       children: [
+//         const Text(
+//           "Sounds like",
+//           style: TextStyle(fontSize: 24, fontFamily: 'Mukta'),
+//         ),
+//         Text(
+//           _recognitionResult.first.soundSourceName,
+//           textAlign: TextAlign.center,
+//           style: const TextStyle(
+//             fontSize: 42,
+//             fontFamily: 'Mukta',
+//             fontWeight: FontWeight.w500,
+//           ),
+//         ),
+//         const SizedBox(
+//           height: 86,
+//         ),
+//         const Text(
+//           "Less probable variants",
+//           style: TextStyle(fontSize: 16, fontFamily: 'Mukta'),
+//         ),
+//         for (var recognizedSound in _recognitionResult.skip(1))
+//           Text(
+//             recognizedSound.soundSourceName,
+//             textAlign: TextAlign.center,
+//             style: const TextStyle(
+//               fontSize: 24,
+//               fontWeight: FontWeight.w400,
+//               fontFamily: 'Mukta',
+//             ),
+//           ),
+//       ],
+//     );
+//   } else {
+//     return const Text(
+//       "Recognition failed of match couldn't be found 😓",
+//       textAlign: TextAlign.center,
+//       style: TextStyle(fontSize: 21),
+//     );
+//   }
+// }
 }

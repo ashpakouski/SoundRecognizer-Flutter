@@ -47,7 +47,7 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) {
-                return ResultScreen(recognitionResult: state.recognitionResult);
+                return ResultScreen();
               }),
             );
           }
