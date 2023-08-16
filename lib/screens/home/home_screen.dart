@@ -17,37 +17,49 @@ class HomeScreen extends StatelessWidget {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
+        body: Stack(
           children: [
-            Container(width: screen.width / 3),
-            Container(
-              width: screen.width / 3,
-              child: Center(
-                child: FloatingActionButton.large(
-                  onPressed: () {},
-                  backgroundColor: const Color(0xFFE1FE3B),
-                  child: const Icon(
-                    Icons.mic,
-                    color: Colors.black87,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 24.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(width: screen.width / 3),
+                      SizedBox(
+                        width: screen.width / 3,
+                        child: Center(
+                          child: FloatingActionButton.large(
+                            onPressed: () {},
+                            backgroundColor: const Color(0xFFE1FE3B),
+                            child: const Icon(
+                              Icons.mic,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: screen.width / 3,
+                        child: Center(
+                          child: FloatingActionButton.small(
+                            onPressed: () {},
+                            backgroundColor: const Color(0xFFE1FE3B),
+                            child: const Icon(
+                              Icons.swap_horiz,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ),
-            Container(
-              width: screen.width / 3,
-              child: Center(
-                child: FloatingActionButton.small(
-                  onPressed: () {},
-                  backgroundColor: const Color(0xFFE1FE3B),
-                  child: const Icon(
-                    Icons.swap_horiz,
-                    color: Colors.black87,
-                  ),
-                ),
-              ),
+              ],
             ),
           ],
         ),
