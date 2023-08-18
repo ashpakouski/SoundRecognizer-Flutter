@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:sound_recognizer/common/component/audio_record_view.dart';
 import 'package:sound_recognizer/common/enum/app_mode.dart';
 import 'package:sound_recognizer/component/variant_picker.dart';
 
@@ -11,15 +15,39 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   AppMode currentMode = AppMode.recognition;
+  List<int> soundValues = List.filled(15, 0);
 
   @override
   Widget build(BuildContext context) {
     final screen = MediaQuery.of(context).size;
 
+    Timer.periodic(const Duration(milliseconds: 200), (timer) {
+      final random = Random();
+
+      for (int i = 1; i < soundValues.length; i++) {
+        soundValues[i - 1] = soundValues[i];
+      }
+
+      setState(() {
+        soundValues[soundValues.length - 1] = random.nextInt(150) % 120;
+      });
+    });
+
     return Scaffold(
       backgroundColor: const Color(0xFF201D1D),
       body: Stack(
         children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 48),
+            child: AudioRecordView(
+              soundValues: soundValues,
+              // barsNumber: 8,
+              maxAmplitude: 100,
+              maxHeight: 100,
+              minHeight: 0,
+              barColor: Colors.orange,
+            ),
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
