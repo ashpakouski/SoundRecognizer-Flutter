@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   AppMode currentMode = AppMode.recognition;
-  List<int> soundValues = List.filled(15, 0);
+  List<int> soundValues = List.filled(32, 0);
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +29,12 @@ class _HomeScreenState extends State<HomeScreen> {
       }
 
       setState(() {
-        soundValues[soundValues.length - 1] = random.nextInt(150) % 120;
+        soundValues[soundValues.length - 1] = random.nextInt(150);
       });
     });
 
     return Scaffold(
-      backgroundColor: const Color(0xFF201D1D),
+      backgroundColor: const Color(0xFF191C1E),
       body: Stack(
         children: [
           Padding(
@@ -72,33 +72,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   // crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(width: screen.width / 3),
-                    SizedBox(
-                      width: screen.width / 3,
-                      child: Center(
-                        child: FloatingActionButton.large(
-                          onPressed: () {},
-                          backgroundColor: const Color(0xFFE1FE3B),
-                          child: const Icon(
-                            Icons.mic,
-                            color: Colors.black87,
-                          ),
-                        ),
+                    FloatingActionButton.large(
+                      onPressed: () {},
+                      backgroundColor: const Color(0xFFEE675C),
+                      child: const Icon(
+                        Icons.mic,
+                        color: Colors.black87,
                       ),
-                    ),
-                    SizedBox(
-                      width: screen.width / 3,
-                      child: Center(
-                        child: FloatingActionButton.small(
-                          onPressed: () {},
-                          backgroundColor: const Color(0xFFE1FE3B),
-                          child: const Icon(
-                            Icons.swap_horiz,
-                            color: Colors.black87,
-                          ),
-                        ),
-                      ),
-                    ),
+                    )
                   ],
                 ),
               ),
