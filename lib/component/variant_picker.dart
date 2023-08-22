@@ -24,7 +24,7 @@ class VariantPicker<T extends Enum> extends StatelessWidget {
       height: 40,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: const Color(0xFF1D2630),
+        color: const Color(0xFF1E2529),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -41,8 +41,8 @@ class VariantPicker<T extends Enum> extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   color: isChosenButton
-                      ? (selectedColor ?? const Color(0xFF253137))
-                      : const Color(0xFF1D2630),
+                      ? (selectedColor ?? const Color(0xFF243037))
+                      : const Color(0xFF1E2529),
                 ),
                 padding:
                     const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -50,7 +50,7 @@ class VariantPicker<T extends Enum> extends StatelessWidget {
                 child: Center(
                   child: Text(
                     name,
-                    style: const TextStyle(color: Color(0xFFB7BEC4)),
+                    style: const TextStyle(color: Color(0xFFD0D0D4)),
                     textAlign: TextAlign.center,
                     maxLines: 1,
                   ),
