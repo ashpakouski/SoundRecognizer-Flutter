@@ -6,15 +6,8 @@ import 'package:sound_recognizer/component/wave_animation.dart';
 import 'package:sound_recognizer/screens/home/cubit/recognizer_cubit.dart';
 
 // Main app screen
-class RecognizerScreen extends StatefulWidget {
+class RecognizerScreen extends StatelessWidget {
   const RecognizerScreen({super.key});
-
-  @override
-  State<RecognizerScreen> createState() => _RecognizerScreenState();
-}
-
-class _RecognizerScreenState extends State<RecognizerScreen> {
-  AppMode currentMode = AppMode.recognition;
 
   @override
   Widget build(BuildContext context) {
@@ -29,20 +22,24 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
           builder: (context, state) {
             return Stack(
               children: [
-                Center(
-                  child: WaveAnimation(
-                    color: const Color(0xFFEE675C),
-                    size: screenWidth / 2,
-                  ),
-                ),
+                if (cubit.state is RecognitionState ||
+                    cubit.state is RecordingState)
+                  _centeredWaveAnimation(screenWidth),
                 Center(
                   child: MaterialButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      cubit.startRecording();
+                    },
                     color: const Color(0xFFEE675C),
                     textColor: Colors.white,
-                    child: Icon(
-                      Icons.mic,
-                      size: screenWidth / 3,
+                    child: SizedBox(
+                      height: screenWidth / 3,
+                      width: screenWidth / 3,
+                      child: state.mapOrNull(
+                            recognition: (_) => _iconSquare(screenWidth / 4.5),
+                            recording: (_) => _iconSquare(screenWidth / 4.5),
+                          ) ??
+                          _iconMic(screenWidth / 3.5),
                     ),
                     padding: const EdgeInsets.all(16),
                     shape: const CircleBorder(),
@@ -57,20 +54,23 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
                       flex: 2,
                     ),
                     Expanded(
-                      child: Center(
-                        child: VariantPicker<AppMode>(
-                          currentElement: cubit.state.mode,
-                          variants: AppMode.values,
-                          stringBuilder: (mode) {
-                            return (mode == AppMode.recognition)
-                                ? "Recognition"
-                                : "Recording";
-                          },
-                          onChange: (mode) {
-                            cubit.switchMode(mode);
-                          },
-                        ),
-                      ),
+                      child: cubit.state.mapOrNull(
+                            initial: (state) => Center(
+                              child: VariantPicker<AppMode>(
+                                currentElement: state.mode,
+                                variants: AppMode.values,
+                                stringBuilder: (mode) {
+                                  return (mode == AppMode.recognition)
+                                      ? "Recognition"
+                                      : "Recording";
+                                },
+                                onChange: (mode) {
+                                  cubit.switchMode(mode);
+                                },
+                              ),
+                            ),
+                          ) ??
+                          Container(),
                       flex: 1,
                     ),
                   ],
@@ -79,6 +79,29 @@ class _RecognizerScreenState extends State<RecognizerScreen> {
             );
           },
         ),
+      ),
+    );
+  }
+
+  Widget _iconMic(double size) {
+    return Icon(
+      Icons.mic,
+      size: size,
+    );
+  }
+
+  Widget _iconSquare(double size) {
+    return Icon(
+      Icons.square_rounded,
+      size: size,
+    );
+  }
+
+  Widget _centeredWaveAnimation(double screenWidth) {
+    return Center(
+      child: WaveAnimation(
+        color: const Color(0xFFEE675C),
+        size: screenWidth / 2,
       ),
     );
   }

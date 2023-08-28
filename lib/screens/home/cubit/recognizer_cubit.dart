@@ -10,8 +10,10 @@ class RecognizerCubit extends Cubit<RecognizerState> {
   RecognizerCubit() : super(const RecognizerState.initial(AppMode.recognition));
 
   void switchMode(AppMode newMode) {
-    emit(state.copyWith(mode: newMode));
+    state.mapOrNull(initial: (_) => emit(RecognizerState.initial(newMode)));
   }
 
-  void startRecording() {}
+  void startRecording() {
+    emit(const RecognizerState.recording());
+  }
 }
