@@ -14,6 +14,14 @@ class RecognizerCubit extends Cubit<RecognizerState> {
   }
 
   void startRecording() {
-    emit(const RecognizerState.recording());
+    state.mapOrNull(initial: (s) {
+      emit((s.mode == AppMode.recording)
+          ? const RecognizerState.recording()
+          : const RecognizerState.recognition());
+    }, recording: (_) {
+      emit(const RecognizerState.initial(AppMode.recording));
+    }, recognition: (_) {
+      emit(const RecognizerState.initial(AppMode.recognition));
+    });
   }
 }
