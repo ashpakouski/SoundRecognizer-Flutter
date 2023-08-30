@@ -22,8 +22,8 @@ class RecognizerScreen extends StatelessWidget {
           builder: (context, state) {
             return Stack(
               children: [
-                if (cubit.state is RecognitionState ||
-                    cubit.state is RecordingState)
+                if (cubit.state is RecognitionStartedState ||
+                    cubit.state is RecordingStartedState)
                   _centeredWaveAnimation(screenWidth),
                 Center(
                   child: MaterialButton(
@@ -36,8 +36,10 @@ class RecognizerScreen extends StatelessWidget {
                       height: screenWidth / 3,
                       width: screenWidth / 3,
                       child: state.mapOrNull(
-                            recognition: (_) => _iconSquare(screenWidth / 4.5),
-                            recording: (_) => _iconSquare(screenWidth / 4.5),
+                            recognitionStarted: (_) =>
+                                _iconSquare(screenWidth / 4.5),
+                            recordingStarted: (_) =>
+                                _iconSquare(screenWidth / 4.5),
                           ) ??
                           _iconMic(screenWidth / 3.5),
                     ),

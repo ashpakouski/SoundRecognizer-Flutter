@@ -19,44 +19,69 @@ mixin _$RecognizerState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppMode mode) initial,
-    required TResult Function() recording,
-    required TResult Function() recognition,
+    required TResult Function() recordingStarted,
+    required TResult Function() recognitionStarted,
+    required TResult Function(String objectName) recognitionSucceeded,
+    required TResult Function() recognitionFailed,
+    required TResult Function() recordingCompleted,
+    required TResult Function() recordingFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppMode mode)? initial,
-    TResult? Function()? recording,
-    TResult? Function()? recognition,
+    TResult? Function()? recordingStarted,
+    TResult? Function()? recognitionStarted,
+    TResult? Function(String objectName)? recognitionSucceeded,
+    TResult? Function()? recognitionFailed,
+    TResult? Function()? recordingCompleted,
+    TResult? Function()? recordingFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppMode mode)? initial,
-    TResult Function()? recording,
-    TResult Function()? recognition,
+    TResult Function()? recordingStarted,
+    TResult Function()? recognitionStarted,
+    TResult Function(String objectName)? recognitionSucceeded,
+    TResult Function()? recognitionFailed,
+    TResult Function()? recordingCompleted,
+    TResult Function()? recordingFailed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InitialState value) initial,
-    required TResult Function(RecognitionState value) recording,
-    required TResult Function(RecordingState value) recognition,
+    required TResult Function(RecordingStartedState value) recordingStarted,
+    required TResult Function(RecognitionStartedState value) recognitionStarted,
+    required TResult Function(RecognitionSucceededState value)
+        recognitionSucceeded,
+    required TResult Function(RecognitionFailedState value) recognitionFailed,
+    required TResult Function(RecordingCompletedState value) recordingCompleted,
+    required TResult Function(RecordingFailedState value) recordingFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InitialState value)? initial,
-    TResult? Function(RecognitionState value)? recording,
-    TResult? Function(RecordingState value)? recognition,
+    TResult? Function(RecordingStartedState value)? recordingStarted,
+    TResult? Function(RecognitionStartedState value)? recognitionStarted,
+    TResult? Function(RecognitionSucceededState value)? recognitionSucceeded,
+    TResult? Function(RecognitionFailedState value)? recognitionFailed,
+    TResult? Function(RecordingCompletedState value)? recordingCompleted,
+    TResult? Function(RecordingFailedState value)? recordingFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InitialState value)? initial,
-    TResult Function(RecognitionState value)? recording,
-    TResult Function(RecordingState value)? recognition,
+    TResult Function(RecordingStartedState value)? recordingStarted,
+    TResult Function(RecognitionStartedState value)? recognitionStarted,
+    TResult Function(RecognitionSucceededState value)? recognitionSucceeded,
+    TResult Function(RecognitionFailedState value)? recognitionFailed,
+    TResult Function(RecordingCompletedState value)? recordingCompleted,
+    TResult Function(RecordingFailedState value)? recordingFailed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -145,8 +170,12 @@ class _$InitialState implements InitialState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppMode mode) initial,
-    required TResult Function() recording,
-    required TResult Function() recognition,
+    required TResult Function() recordingStarted,
+    required TResult Function() recognitionStarted,
+    required TResult Function(String objectName) recognitionSucceeded,
+    required TResult Function() recognitionFailed,
+    required TResult Function() recordingCompleted,
+    required TResult Function() recordingFailed,
   }) {
     return initial(mode);
   }
@@ -155,8 +184,12 @@ class _$InitialState implements InitialState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppMode mode)? initial,
-    TResult? Function()? recording,
-    TResult? Function()? recognition,
+    TResult? Function()? recordingStarted,
+    TResult? Function()? recognitionStarted,
+    TResult? Function(String objectName)? recognitionSucceeded,
+    TResult? Function()? recognitionFailed,
+    TResult? Function()? recordingCompleted,
+    TResult? Function()? recordingFailed,
   }) {
     return initial?.call(mode);
   }
@@ -165,8 +198,12 @@ class _$InitialState implements InitialState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppMode mode)? initial,
-    TResult Function()? recording,
-    TResult Function()? recognition,
+    TResult Function()? recordingStarted,
+    TResult Function()? recognitionStarted,
+    TResult Function(String objectName)? recognitionSucceeded,
+    TResult Function()? recognitionFailed,
+    TResult Function()? recordingCompleted,
+    TResult Function()? recordingFailed,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -179,8 +216,13 @@ class _$InitialState implements InitialState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InitialState value) initial,
-    required TResult Function(RecognitionState value) recording,
-    required TResult Function(RecordingState value) recognition,
+    required TResult Function(RecordingStartedState value) recordingStarted,
+    required TResult Function(RecognitionStartedState value) recognitionStarted,
+    required TResult Function(RecognitionSucceededState value)
+        recognitionSucceeded,
+    required TResult Function(RecognitionFailedState value) recognitionFailed,
+    required TResult Function(RecordingCompletedState value) recordingCompleted,
+    required TResult Function(RecordingFailedState value) recordingFailed,
   }) {
     return initial(this);
   }
@@ -189,8 +231,12 @@ class _$InitialState implements InitialState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InitialState value)? initial,
-    TResult? Function(RecognitionState value)? recording,
-    TResult? Function(RecordingState value)? recognition,
+    TResult? Function(RecordingStartedState value)? recordingStarted,
+    TResult? Function(RecognitionStartedState value)? recognitionStarted,
+    TResult? Function(RecognitionSucceededState value)? recognitionSucceeded,
+    TResult? Function(RecognitionFailedState value)? recognitionFailed,
+    TResult? Function(RecordingCompletedState value)? recordingCompleted,
+    TResult? Function(RecordingFailedState value)? recordingFailed,
   }) {
     return initial?.call(this);
   }
@@ -199,8 +245,12 @@ class _$InitialState implements InitialState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InitialState value)? initial,
-    TResult Function(RecognitionState value)? recording,
-    TResult Function(RecordingState value)? recognition,
+    TResult Function(RecordingStartedState value)? recordingStarted,
+    TResult Function(RecognitionStartedState value)? recognitionStarted,
+    TResult Function(RecognitionSucceededState value)? recognitionSucceeded,
+    TResult Function(RecognitionFailedState value)? recognitionFailed,
+    TResult Function(RecordingCompletedState value)? recordingCompleted,
+    TResult Function(RecordingFailedState value)? recordingFailed,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -220,35 +270,35 @@ abstract class InitialState implements RecognizerState {
 }
 
 /// @nodoc
-abstract class _$$RecognitionStateCopyWith<$Res> {
-  factory _$$RecognitionStateCopyWith(
-          _$RecognitionState value, $Res Function(_$RecognitionState) then) =
-      __$$RecognitionStateCopyWithImpl<$Res>;
+abstract class _$$RecordingStartedStateCopyWith<$Res> {
+  factory _$$RecordingStartedStateCopyWith(_$RecordingStartedState value,
+          $Res Function(_$RecordingStartedState) then) =
+      __$$RecordingStartedStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$RecognitionStateCopyWithImpl<$Res>
-    extends _$RecognizerStateCopyWithImpl<$Res, _$RecognitionState>
-    implements _$$RecognitionStateCopyWith<$Res> {
-  __$$RecognitionStateCopyWithImpl(
-      _$RecognitionState _value, $Res Function(_$RecognitionState) _then)
+class __$$RecordingStartedStateCopyWithImpl<$Res>
+    extends _$RecognizerStateCopyWithImpl<$Res, _$RecordingStartedState>
+    implements _$$RecordingStartedStateCopyWith<$Res> {
+  __$$RecordingStartedStateCopyWithImpl(_$RecordingStartedState _value,
+      $Res Function(_$RecordingStartedState) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$RecognitionState implements RecognitionState {
-  const _$RecognitionState();
+class _$RecordingStartedState implements RecordingStartedState {
+  const _$RecordingStartedState();
 
   @override
   String toString() {
-    return 'RecognizerState.recording()';
+    return 'RecognizerState.recordingStarted()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$RecognitionState);
+        (other.runtimeType == runtimeType && other is _$RecordingStartedState);
   }
 
   @override
@@ -258,32 +308,44 @@ class _$RecognitionState implements RecognitionState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppMode mode) initial,
-    required TResult Function() recording,
-    required TResult Function() recognition,
+    required TResult Function() recordingStarted,
+    required TResult Function() recognitionStarted,
+    required TResult Function(String objectName) recognitionSucceeded,
+    required TResult Function() recognitionFailed,
+    required TResult Function() recordingCompleted,
+    required TResult Function() recordingFailed,
   }) {
-    return recording();
+    return recordingStarted();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppMode mode)? initial,
-    TResult? Function()? recording,
-    TResult? Function()? recognition,
+    TResult? Function()? recordingStarted,
+    TResult? Function()? recognitionStarted,
+    TResult? Function(String objectName)? recognitionSucceeded,
+    TResult? Function()? recognitionFailed,
+    TResult? Function()? recordingCompleted,
+    TResult? Function()? recordingFailed,
   }) {
-    return recording?.call();
+    return recordingStarted?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppMode mode)? initial,
-    TResult Function()? recording,
-    TResult Function()? recognition,
+    TResult Function()? recordingStarted,
+    TResult Function()? recognitionStarted,
+    TResult Function(String objectName)? recognitionSucceeded,
+    TResult Function()? recognitionFailed,
+    TResult Function()? recordingCompleted,
+    TResult Function()? recordingFailed,
     required TResult orElse(),
   }) {
-    if (recording != null) {
-      return recording();
+    if (recordingStarted != null) {
+      return recordingStarted();
     }
     return orElse();
   }
@@ -292,71 +354,85 @@ class _$RecognitionState implements RecognitionState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InitialState value) initial,
-    required TResult Function(RecognitionState value) recording,
-    required TResult Function(RecordingState value) recognition,
+    required TResult Function(RecordingStartedState value) recordingStarted,
+    required TResult Function(RecognitionStartedState value) recognitionStarted,
+    required TResult Function(RecognitionSucceededState value)
+        recognitionSucceeded,
+    required TResult Function(RecognitionFailedState value) recognitionFailed,
+    required TResult Function(RecordingCompletedState value) recordingCompleted,
+    required TResult Function(RecordingFailedState value) recordingFailed,
   }) {
-    return recording(this);
+    return recordingStarted(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InitialState value)? initial,
-    TResult? Function(RecognitionState value)? recording,
-    TResult? Function(RecordingState value)? recognition,
+    TResult? Function(RecordingStartedState value)? recordingStarted,
+    TResult? Function(RecognitionStartedState value)? recognitionStarted,
+    TResult? Function(RecognitionSucceededState value)? recognitionSucceeded,
+    TResult? Function(RecognitionFailedState value)? recognitionFailed,
+    TResult? Function(RecordingCompletedState value)? recordingCompleted,
+    TResult? Function(RecordingFailedState value)? recordingFailed,
   }) {
-    return recording?.call(this);
+    return recordingStarted?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InitialState value)? initial,
-    TResult Function(RecognitionState value)? recording,
-    TResult Function(RecordingState value)? recognition,
+    TResult Function(RecordingStartedState value)? recordingStarted,
+    TResult Function(RecognitionStartedState value)? recognitionStarted,
+    TResult Function(RecognitionSucceededState value)? recognitionSucceeded,
+    TResult Function(RecognitionFailedState value)? recognitionFailed,
+    TResult Function(RecordingCompletedState value)? recordingCompleted,
+    TResult Function(RecordingFailedState value)? recordingFailed,
     required TResult orElse(),
   }) {
-    if (recording != null) {
-      return recording(this);
+    if (recordingStarted != null) {
+      return recordingStarted(this);
     }
     return orElse();
   }
 }
 
-abstract class RecognitionState implements RecognizerState {
-  const factory RecognitionState() = _$RecognitionState;
+abstract class RecordingStartedState implements RecognizerState {
+  const factory RecordingStartedState() = _$RecordingStartedState;
 }
 
 /// @nodoc
-abstract class _$$RecordingStateCopyWith<$Res> {
-  factory _$$RecordingStateCopyWith(
-          _$RecordingState value, $Res Function(_$RecordingState) then) =
-      __$$RecordingStateCopyWithImpl<$Res>;
+abstract class _$$RecognitionStartedStateCopyWith<$Res> {
+  factory _$$RecognitionStartedStateCopyWith(_$RecognitionStartedState value,
+          $Res Function(_$RecognitionStartedState) then) =
+      __$$RecognitionStartedStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$RecordingStateCopyWithImpl<$Res>
-    extends _$RecognizerStateCopyWithImpl<$Res, _$RecordingState>
-    implements _$$RecordingStateCopyWith<$Res> {
-  __$$RecordingStateCopyWithImpl(
-      _$RecordingState _value, $Res Function(_$RecordingState) _then)
+class __$$RecognitionStartedStateCopyWithImpl<$Res>
+    extends _$RecognizerStateCopyWithImpl<$Res, _$RecognitionStartedState>
+    implements _$$RecognitionStartedStateCopyWith<$Res> {
+  __$$RecognitionStartedStateCopyWithImpl(_$RecognitionStartedState _value,
+      $Res Function(_$RecognitionStartedState) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$RecordingState implements RecordingState {
-  const _$RecordingState();
+class _$RecognitionStartedState implements RecognitionStartedState {
+  const _$RecognitionStartedState();
 
   @override
   String toString() {
-    return 'RecognizerState.recognition()';
+    return 'RecognizerState.recognitionStarted()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$RecordingState);
+        (other.runtimeType == runtimeType &&
+            other is _$RecognitionStartedState);
   }
 
   @override
@@ -366,32 +442,44 @@ class _$RecordingState implements RecordingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppMode mode) initial,
-    required TResult Function() recording,
-    required TResult Function() recognition,
+    required TResult Function() recordingStarted,
+    required TResult Function() recognitionStarted,
+    required TResult Function(String objectName) recognitionSucceeded,
+    required TResult Function() recognitionFailed,
+    required TResult Function() recordingCompleted,
+    required TResult Function() recordingFailed,
   }) {
-    return recognition();
+    return recognitionStarted();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppMode mode)? initial,
-    TResult? Function()? recording,
-    TResult? Function()? recognition,
+    TResult? Function()? recordingStarted,
+    TResult? Function()? recognitionStarted,
+    TResult? Function(String objectName)? recognitionSucceeded,
+    TResult? Function()? recognitionFailed,
+    TResult? Function()? recordingCompleted,
+    TResult? Function()? recordingFailed,
   }) {
-    return recognition?.call();
+    return recognitionStarted?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppMode mode)? initial,
-    TResult Function()? recording,
-    TResult Function()? recognition,
+    TResult Function()? recordingStarted,
+    TResult Function()? recognitionStarted,
+    TResult Function(String objectName)? recognitionSucceeded,
+    TResult Function()? recognitionFailed,
+    TResult Function()? recordingCompleted,
+    TResult Function()? recordingFailed,
     required TResult orElse(),
   }) {
-    if (recognition != null) {
-      return recognition();
+    if (recognitionStarted != null) {
+      return recognitionStarted();
     }
     return orElse();
   }
@@ -400,37 +488,618 @@ class _$RecordingState implements RecordingState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InitialState value) initial,
-    required TResult Function(RecognitionState value) recording,
-    required TResult Function(RecordingState value) recognition,
+    required TResult Function(RecordingStartedState value) recordingStarted,
+    required TResult Function(RecognitionStartedState value) recognitionStarted,
+    required TResult Function(RecognitionSucceededState value)
+        recognitionSucceeded,
+    required TResult Function(RecognitionFailedState value) recognitionFailed,
+    required TResult Function(RecordingCompletedState value) recordingCompleted,
+    required TResult Function(RecordingFailedState value) recordingFailed,
   }) {
-    return recognition(this);
+    return recognitionStarted(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InitialState value)? initial,
-    TResult? Function(RecognitionState value)? recording,
-    TResult? Function(RecordingState value)? recognition,
+    TResult? Function(RecordingStartedState value)? recordingStarted,
+    TResult? Function(RecognitionStartedState value)? recognitionStarted,
+    TResult? Function(RecognitionSucceededState value)? recognitionSucceeded,
+    TResult? Function(RecognitionFailedState value)? recognitionFailed,
+    TResult? Function(RecordingCompletedState value)? recordingCompleted,
+    TResult? Function(RecordingFailedState value)? recordingFailed,
   }) {
-    return recognition?.call(this);
+    return recognitionStarted?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InitialState value)? initial,
-    TResult Function(RecognitionState value)? recording,
-    TResult Function(RecordingState value)? recognition,
+    TResult Function(RecordingStartedState value)? recordingStarted,
+    TResult Function(RecognitionStartedState value)? recognitionStarted,
+    TResult Function(RecognitionSucceededState value)? recognitionSucceeded,
+    TResult Function(RecognitionFailedState value)? recognitionFailed,
+    TResult Function(RecordingCompletedState value)? recordingCompleted,
+    TResult Function(RecordingFailedState value)? recordingFailed,
     required TResult orElse(),
   }) {
-    if (recognition != null) {
-      return recognition(this);
+    if (recognitionStarted != null) {
+      return recognitionStarted(this);
     }
     return orElse();
   }
 }
 
-abstract class RecordingState implements RecognizerState {
-  const factory RecordingState() = _$RecordingState;
+abstract class RecognitionStartedState implements RecognizerState {
+  const factory RecognitionStartedState() = _$RecognitionStartedState;
+}
+
+/// @nodoc
+abstract class _$$RecognitionSucceededStateCopyWith<$Res> {
+  factory _$$RecognitionSucceededStateCopyWith(
+          _$RecognitionSucceededState value,
+          $Res Function(_$RecognitionSucceededState) then) =
+      __$$RecognitionSucceededStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String objectName});
+}
+
+/// @nodoc
+class __$$RecognitionSucceededStateCopyWithImpl<$Res>
+    extends _$RecognizerStateCopyWithImpl<$Res, _$RecognitionSucceededState>
+    implements _$$RecognitionSucceededStateCopyWith<$Res> {
+  __$$RecognitionSucceededStateCopyWithImpl(_$RecognitionSucceededState _value,
+      $Res Function(_$RecognitionSucceededState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? objectName = null,
+  }) {
+    return _then(_$RecognitionSucceededState(
+      null == objectName
+          ? _value.objectName
+          : objectName // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RecognitionSucceededState implements RecognitionSucceededState {
+  const _$RecognitionSucceededState(this.objectName);
+
+  @override
+  final String objectName;
+
+  @override
+  String toString() {
+    return 'RecognizerState.recognitionSucceeded(objectName: $objectName)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RecognitionSucceededState &&
+            (identical(other.objectName, objectName) ||
+                other.objectName == objectName));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, objectName);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RecognitionSucceededStateCopyWith<_$RecognitionSucceededState>
+      get copyWith => __$$RecognitionSucceededStateCopyWithImpl<
+          _$RecognitionSucceededState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(AppMode mode) initial,
+    required TResult Function() recordingStarted,
+    required TResult Function() recognitionStarted,
+    required TResult Function(String objectName) recognitionSucceeded,
+    required TResult Function() recognitionFailed,
+    required TResult Function() recordingCompleted,
+    required TResult Function() recordingFailed,
+  }) {
+    return recognitionSucceeded(objectName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(AppMode mode)? initial,
+    TResult? Function()? recordingStarted,
+    TResult? Function()? recognitionStarted,
+    TResult? Function(String objectName)? recognitionSucceeded,
+    TResult? Function()? recognitionFailed,
+    TResult? Function()? recordingCompleted,
+    TResult? Function()? recordingFailed,
+  }) {
+    return recognitionSucceeded?.call(objectName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(AppMode mode)? initial,
+    TResult Function()? recordingStarted,
+    TResult Function()? recognitionStarted,
+    TResult Function(String objectName)? recognitionSucceeded,
+    TResult Function()? recognitionFailed,
+    TResult Function()? recordingCompleted,
+    TResult Function()? recordingFailed,
+    required TResult orElse(),
+  }) {
+    if (recognitionSucceeded != null) {
+      return recognitionSucceeded(objectName);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InitialState value) initial,
+    required TResult Function(RecordingStartedState value) recordingStarted,
+    required TResult Function(RecognitionStartedState value) recognitionStarted,
+    required TResult Function(RecognitionSucceededState value)
+        recognitionSucceeded,
+    required TResult Function(RecognitionFailedState value) recognitionFailed,
+    required TResult Function(RecordingCompletedState value) recordingCompleted,
+    required TResult Function(RecordingFailedState value) recordingFailed,
+  }) {
+    return recognitionSucceeded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InitialState value)? initial,
+    TResult? Function(RecordingStartedState value)? recordingStarted,
+    TResult? Function(RecognitionStartedState value)? recognitionStarted,
+    TResult? Function(RecognitionSucceededState value)? recognitionSucceeded,
+    TResult? Function(RecognitionFailedState value)? recognitionFailed,
+    TResult? Function(RecordingCompletedState value)? recordingCompleted,
+    TResult? Function(RecordingFailedState value)? recordingFailed,
+  }) {
+    return recognitionSucceeded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InitialState value)? initial,
+    TResult Function(RecordingStartedState value)? recordingStarted,
+    TResult Function(RecognitionStartedState value)? recognitionStarted,
+    TResult Function(RecognitionSucceededState value)? recognitionSucceeded,
+    TResult Function(RecognitionFailedState value)? recognitionFailed,
+    TResult Function(RecordingCompletedState value)? recordingCompleted,
+    TResult Function(RecordingFailedState value)? recordingFailed,
+    required TResult orElse(),
+  }) {
+    if (recognitionSucceeded != null) {
+      return recognitionSucceeded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RecognitionSucceededState implements RecognizerState {
+  const factory RecognitionSucceededState(final String objectName) =
+      _$RecognitionSucceededState;
+
+  String get objectName;
+  @JsonKey(ignore: true)
+  _$$RecognitionSucceededStateCopyWith<_$RecognitionSucceededState>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RecognitionFailedStateCopyWith<$Res> {
+  factory _$$RecognitionFailedStateCopyWith(_$RecognitionFailedState value,
+          $Res Function(_$RecognitionFailedState) then) =
+      __$$RecognitionFailedStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RecognitionFailedStateCopyWithImpl<$Res>
+    extends _$RecognizerStateCopyWithImpl<$Res, _$RecognitionFailedState>
+    implements _$$RecognitionFailedStateCopyWith<$Res> {
+  __$$RecognitionFailedStateCopyWithImpl(_$RecognitionFailedState _value,
+      $Res Function(_$RecognitionFailedState) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$RecognitionFailedState implements RecognitionFailedState {
+  const _$RecognitionFailedState();
+
+  @override
+  String toString() {
+    return 'RecognizerState.recognitionFailed()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$RecognitionFailedState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(AppMode mode) initial,
+    required TResult Function() recordingStarted,
+    required TResult Function() recognitionStarted,
+    required TResult Function(String objectName) recognitionSucceeded,
+    required TResult Function() recognitionFailed,
+    required TResult Function() recordingCompleted,
+    required TResult Function() recordingFailed,
+  }) {
+    return recognitionFailed();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(AppMode mode)? initial,
+    TResult? Function()? recordingStarted,
+    TResult? Function()? recognitionStarted,
+    TResult? Function(String objectName)? recognitionSucceeded,
+    TResult? Function()? recognitionFailed,
+    TResult? Function()? recordingCompleted,
+    TResult? Function()? recordingFailed,
+  }) {
+    return recognitionFailed?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(AppMode mode)? initial,
+    TResult Function()? recordingStarted,
+    TResult Function()? recognitionStarted,
+    TResult Function(String objectName)? recognitionSucceeded,
+    TResult Function()? recognitionFailed,
+    TResult Function()? recordingCompleted,
+    TResult Function()? recordingFailed,
+    required TResult orElse(),
+  }) {
+    if (recognitionFailed != null) {
+      return recognitionFailed();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InitialState value) initial,
+    required TResult Function(RecordingStartedState value) recordingStarted,
+    required TResult Function(RecognitionStartedState value) recognitionStarted,
+    required TResult Function(RecognitionSucceededState value)
+        recognitionSucceeded,
+    required TResult Function(RecognitionFailedState value) recognitionFailed,
+    required TResult Function(RecordingCompletedState value) recordingCompleted,
+    required TResult Function(RecordingFailedState value) recordingFailed,
+  }) {
+    return recognitionFailed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InitialState value)? initial,
+    TResult? Function(RecordingStartedState value)? recordingStarted,
+    TResult? Function(RecognitionStartedState value)? recognitionStarted,
+    TResult? Function(RecognitionSucceededState value)? recognitionSucceeded,
+    TResult? Function(RecognitionFailedState value)? recognitionFailed,
+    TResult? Function(RecordingCompletedState value)? recordingCompleted,
+    TResult? Function(RecordingFailedState value)? recordingFailed,
+  }) {
+    return recognitionFailed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InitialState value)? initial,
+    TResult Function(RecordingStartedState value)? recordingStarted,
+    TResult Function(RecognitionStartedState value)? recognitionStarted,
+    TResult Function(RecognitionSucceededState value)? recognitionSucceeded,
+    TResult Function(RecognitionFailedState value)? recognitionFailed,
+    TResult Function(RecordingCompletedState value)? recordingCompleted,
+    TResult Function(RecordingFailedState value)? recordingFailed,
+    required TResult orElse(),
+  }) {
+    if (recognitionFailed != null) {
+      return recognitionFailed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RecognitionFailedState implements RecognizerState {
+  const factory RecognitionFailedState() = _$RecognitionFailedState;
+}
+
+/// @nodoc
+abstract class _$$RecordingCompletedStateCopyWith<$Res> {
+  factory _$$RecordingCompletedStateCopyWith(_$RecordingCompletedState value,
+          $Res Function(_$RecordingCompletedState) then) =
+      __$$RecordingCompletedStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RecordingCompletedStateCopyWithImpl<$Res>
+    extends _$RecognizerStateCopyWithImpl<$Res, _$RecordingCompletedState>
+    implements _$$RecordingCompletedStateCopyWith<$Res> {
+  __$$RecordingCompletedStateCopyWithImpl(_$RecordingCompletedState _value,
+      $Res Function(_$RecordingCompletedState) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$RecordingCompletedState implements RecordingCompletedState {
+  const _$RecordingCompletedState();
+
+  @override
+  String toString() {
+    return 'RecognizerState.recordingCompleted()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RecordingCompletedState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(AppMode mode) initial,
+    required TResult Function() recordingStarted,
+    required TResult Function() recognitionStarted,
+    required TResult Function(String objectName) recognitionSucceeded,
+    required TResult Function() recognitionFailed,
+    required TResult Function() recordingCompleted,
+    required TResult Function() recordingFailed,
+  }) {
+    return recordingCompleted();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(AppMode mode)? initial,
+    TResult? Function()? recordingStarted,
+    TResult? Function()? recognitionStarted,
+    TResult? Function(String objectName)? recognitionSucceeded,
+    TResult? Function()? recognitionFailed,
+    TResult? Function()? recordingCompleted,
+    TResult? Function()? recordingFailed,
+  }) {
+    return recordingCompleted?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(AppMode mode)? initial,
+    TResult Function()? recordingStarted,
+    TResult Function()? recognitionStarted,
+    TResult Function(String objectName)? recognitionSucceeded,
+    TResult Function()? recognitionFailed,
+    TResult Function()? recordingCompleted,
+    TResult Function()? recordingFailed,
+    required TResult orElse(),
+  }) {
+    if (recordingCompleted != null) {
+      return recordingCompleted();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InitialState value) initial,
+    required TResult Function(RecordingStartedState value) recordingStarted,
+    required TResult Function(RecognitionStartedState value) recognitionStarted,
+    required TResult Function(RecognitionSucceededState value)
+        recognitionSucceeded,
+    required TResult Function(RecognitionFailedState value) recognitionFailed,
+    required TResult Function(RecordingCompletedState value) recordingCompleted,
+    required TResult Function(RecordingFailedState value) recordingFailed,
+  }) {
+    return recordingCompleted(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InitialState value)? initial,
+    TResult? Function(RecordingStartedState value)? recordingStarted,
+    TResult? Function(RecognitionStartedState value)? recognitionStarted,
+    TResult? Function(RecognitionSucceededState value)? recognitionSucceeded,
+    TResult? Function(RecognitionFailedState value)? recognitionFailed,
+    TResult? Function(RecordingCompletedState value)? recordingCompleted,
+    TResult? Function(RecordingFailedState value)? recordingFailed,
+  }) {
+    return recordingCompleted?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InitialState value)? initial,
+    TResult Function(RecordingStartedState value)? recordingStarted,
+    TResult Function(RecognitionStartedState value)? recognitionStarted,
+    TResult Function(RecognitionSucceededState value)? recognitionSucceeded,
+    TResult Function(RecognitionFailedState value)? recognitionFailed,
+    TResult Function(RecordingCompletedState value)? recordingCompleted,
+    TResult Function(RecordingFailedState value)? recordingFailed,
+    required TResult orElse(),
+  }) {
+    if (recordingCompleted != null) {
+      return recordingCompleted(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RecordingCompletedState implements RecognizerState {
+  const factory RecordingCompletedState() = _$RecordingCompletedState;
+}
+
+/// @nodoc
+abstract class _$$RecordingFailedStateCopyWith<$Res> {
+  factory _$$RecordingFailedStateCopyWith(_$RecordingFailedState value,
+          $Res Function(_$RecordingFailedState) then) =
+      __$$RecordingFailedStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RecordingFailedStateCopyWithImpl<$Res>
+    extends _$RecognizerStateCopyWithImpl<$Res, _$RecordingFailedState>
+    implements _$$RecordingFailedStateCopyWith<$Res> {
+  __$$RecordingFailedStateCopyWithImpl(_$RecordingFailedState _value,
+      $Res Function(_$RecordingFailedState) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$RecordingFailedState implements RecordingFailedState {
+  const _$RecordingFailedState();
+
+  @override
+  String toString() {
+    return 'RecognizerState.recordingFailed()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$RecordingFailedState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(AppMode mode) initial,
+    required TResult Function() recordingStarted,
+    required TResult Function() recognitionStarted,
+    required TResult Function(String objectName) recognitionSucceeded,
+    required TResult Function() recognitionFailed,
+    required TResult Function() recordingCompleted,
+    required TResult Function() recordingFailed,
+  }) {
+    return recordingFailed();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(AppMode mode)? initial,
+    TResult? Function()? recordingStarted,
+    TResult? Function()? recognitionStarted,
+    TResult? Function(String objectName)? recognitionSucceeded,
+    TResult? Function()? recognitionFailed,
+    TResult? Function()? recordingCompleted,
+    TResult? Function()? recordingFailed,
+  }) {
+    return recordingFailed?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(AppMode mode)? initial,
+    TResult Function()? recordingStarted,
+    TResult Function()? recognitionStarted,
+    TResult Function(String objectName)? recognitionSucceeded,
+    TResult Function()? recognitionFailed,
+    TResult Function()? recordingCompleted,
+    TResult Function()? recordingFailed,
+    required TResult orElse(),
+  }) {
+    if (recordingFailed != null) {
+      return recordingFailed();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InitialState value) initial,
+    required TResult Function(RecordingStartedState value) recordingStarted,
+    required TResult Function(RecognitionStartedState value) recognitionStarted,
+    required TResult Function(RecognitionSucceededState value)
+        recognitionSucceeded,
+    required TResult Function(RecognitionFailedState value) recognitionFailed,
+    required TResult Function(RecordingCompletedState value) recordingCompleted,
+    required TResult Function(RecordingFailedState value) recordingFailed,
+  }) {
+    return recordingFailed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InitialState value)? initial,
+    TResult? Function(RecordingStartedState value)? recordingStarted,
+    TResult? Function(RecognitionStartedState value)? recognitionStarted,
+    TResult? Function(RecognitionSucceededState value)? recognitionSucceeded,
+    TResult? Function(RecognitionFailedState value)? recognitionFailed,
+    TResult? Function(RecordingCompletedState value)? recordingCompleted,
+    TResult? Function(RecordingFailedState value)? recordingFailed,
+  }) {
+    return recordingFailed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InitialState value)? initial,
+    TResult Function(RecordingStartedState value)? recordingStarted,
+    TResult Function(RecognitionStartedState value)? recognitionStarted,
+    TResult Function(RecognitionSucceededState value)? recognitionSucceeded,
+    TResult Function(RecognitionFailedState value)? recognitionFailed,
+    TResult Function(RecordingCompletedState value)? recordingCompleted,
+    TResult Function(RecordingFailedState value)? recordingFailed,
+    required TResult orElse(),
+  }) {
+    if (recordingFailed != null) {
+      return recordingFailed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RecordingFailedState implements RecognizerState {
+  const factory RecordingFailedState() = _$RecordingFailedState;
 }
