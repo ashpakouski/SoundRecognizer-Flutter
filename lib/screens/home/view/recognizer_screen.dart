@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sound_recognizer/common/enum/app_mode.dart';
-import 'package:sound_recognizer/component/variant_picker.dart';
-import 'package:sound_recognizer/component/wave_animation.dart';
+import 'package:sound_recognizer/component/index.dart';
 import 'package:sound_recognizer/screens/home/cubit/recognizer_cubit.dart';
 
 // Main app screen
@@ -32,17 +31,7 @@ class RecognizerScreen extends StatelessWidget {
                     },
                     color: const Color(0xFFEE675C),
                     textColor: Colors.white,
-                    child: SizedBox(
-                      height: screenWidth / 3,
-                      width: screenWidth / 3,
-                      child: state.mapOrNull(
-                            recognitionStarted: (_) =>
-                                _iconSquare(screenWidth / 4.5),
-                            recordingStarted: (_) =>
-                                _iconSquare(screenWidth / 4.5),
-                          ) ??
-                          _iconMic(screenWidth / 3.5),
-                    ),
+                    child: _buttonChild(screenWidth, state),
                     padding: const EdgeInsets.all(16),
                     shape: const CircleBorder(),
                     elevation: 0,
@@ -85,17 +74,16 @@ class RecognizerScreen extends StatelessWidget {
     );
   }
 
-  Widget _iconMic(double size) {
-    return Icon(
-      Icons.mic,
-      size: size,
-    );
-  }
-
-  Widget _iconSquare(double size) {
-    return Icon(
-      Icons.square_rounded,
-      size: size,
+  Widget _buttonChild(double screenWidth, RecognizerState state) {
+    return SizedBox(
+      height: screenWidth / 3,
+      width: screenWidth / 3,
+      child: state.mapOrNull(
+            recognitionStarted: (_) =>
+                IconSquareRounded(size: screenWidth / 4.5),
+            recordingStarted: (_) => IconSquareRounded(size: screenWidth / 4.5),
+          ) ??
+          IconMic(size: screenWidth / 3.5),
     );
   }
 
