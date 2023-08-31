@@ -13,7 +13,6 @@ class RecognizerScreen extends StatefulWidget {
 }
 
 class _RecognizerScreenState extends State<RecognizerScreen> {
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -210,7 +209,6 @@ Widget _soundRecordingScreen(BuildContext context) {
                 "Recording sound sample",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
-
               const SpinKitThreeBounce(
                 color: Colors.orangeAccent,
                 size: 30,

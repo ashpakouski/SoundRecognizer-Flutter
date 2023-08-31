@@ -10,7 +10,8 @@ class SoundRecorder {
   StreamSubscription? _recordingStreamSubscription;
   final List<int> _soundBuffer = [];
 
-  bool get isRecording => _soundRecorder.recorderState == RecorderState.isRecording;
+  bool get isRecording =>
+      _soundRecorder.recorderState == RecorderState.isRecording;
 
   Future<void> open() async {
     await checkPermission();
@@ -53,7 +54,8 @@ class SoundRecorder {
 
     _soundBuffer.clear();
 
-    _recordingStreamSubscription = recordingDataController.stream.listen((buffer) async {
+    _recordingStreamSubscription =
+        recordingDataController.stream.listen((buffer) async {
       if (buffer is FoodData) {
         _soundBuffer.addAll(buffer.data!);
 
@@ -70,10 +72,8 @@ class SoundRecorder {
     return _soundBuffer;
   }
 
-  Future<List<int>> recordSound({
-    required Duration duration,
-    Function(List<int>)? onNewData
-  }) async {
+  Future<List<int>> recordSound(
+      {required Duration duration, Function(List<int>)? onNewData}) async {
     await startRecording(onNewData: onNewData);
     return Future.delayed(duration, stopRecording);
   }

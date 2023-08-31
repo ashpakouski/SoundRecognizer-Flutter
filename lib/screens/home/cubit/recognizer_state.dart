@@ -6,9 +6,11 @@ class RecognizerState with _$RecognizerState {
     AppMode mode,
   ) = InitialState;
 
-  const factory RecognizerState.recordingStarted() = RecordingStartedState;
+  const factory RecognizerState.recordingInProgress() =
+      RecordingInProgressState;
 
-  const factory RecognizerState.recognitionStarted() = RecognitionStartedState;
+  const factory RecognizerState.recognitionInProgress() =
+      RecognitionInProgressState;
 
   const factory RecognizerState.recognitionSucceeded(String objectName) =
       RecognitionSucceededState;
