@@ -4,20 +4,20 @@ part of 'recognizer_cubit.dart';
 class RecognizerState with _$RecognizerState {
   const factory RecognizerState.initial(
     AppMode mode,
-  ) = InitialState;
+  ) = _InitialState;
 
   const factory RecognizerState.recordingInProgress() =
-      RecordingInProgressState;
+      _RecordingInProgressState;
 
   const factory RecognizerState.recognitionInProgress() =
-      RecognitionInProgressState;
+      _RecognitionInProgressState;
 
   const factory RecognizerState.recognitionSucceeded(String objectName) =
-      RecognitionSucceededState;
+      _RecognitionSucceededState;
 
-  const factory RecognizerState.recognitionFailed() = RecognitionFailedState;
+  const factory RecognizerState.recognitionFailed() = _RecognitionFailedState;
 
-  const factory RecognizerState.recordingCompleted() = RecordingCompletedState;
+  const factory RecognizerState.recordingCompleted() = _RecordingCompletedState;
 
-  const factory RecognizerState.recordingFailed() = RecordingFailedState;
+  const factory RecognizerState.recordingFailed() = _RecordingFailedState;
 }

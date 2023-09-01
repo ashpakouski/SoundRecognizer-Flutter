@@ -21,9 +21,13 @@ class RecognizerScreen extends StatelessWidget {
           builder: (context, state) {
             return Stack(
               children: [
-                if (cubit.state is RecognitionInProgressState ||
-                    cubit.state is RecordingInProgressState)
-                  _centeredWaveAnimation(screenWidth),
+                cubit.state.mapOrNull(
+                      recognitionInProgress: (_) =>
+                          _centeredWaveAnimation(screenWidth),
+                      recordingInProgress: (_) =>
+                          _centeredWaveAnimation(screenWidth),
+                    ) ??
+                    Container(),
                 Center(
                   child: MaterialButton(
                     onPressed: () {
