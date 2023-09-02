@@ -6,6 +6,8 @@ import 'package:sound_recognizer/screens/home/cubit/recognizer_cubit.dart';
 
 // Main app screen
 class RecognizerScreen extends StatelessWidget {
+  static const routeName = "recogniser";
+
   const RecognizerScreen({super.key});
 
   @override

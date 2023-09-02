@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sound_recognizer/screens/home/view/recognizer_screen.dart';
+import 'package:sound_recognizer/utils/app_routes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +17,9 @@ class SoundRecognizerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: RecognizerScreen());
+    return MaterialApp(
+      initialRoute: RecognizerScreen.routeName,
+      routes: appRoutes,
+    );
   }
 }
