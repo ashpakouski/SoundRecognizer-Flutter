@@ -23,7 +23,7 @@ mixin _$RecognizerState {
     required TResult Function() recognitionInProgress,
     required TResult Function(String objectName) recognitionSucceeded,
     required TResult Function() recognitionFailed,
-    required TResult Function() recordingCompleted,
+    required TResult Function(List<int> soundValues) recordingCompleted,
     required TResult Function() recordingFailed,
   }) =>
       throw _privateConstructorUsedError;
@@ -34,7 +34,7 @@ mixin _$RecognizerState {
     TResult? Function()? recognitionInProgress,
     TResult? Function(String objectName)? recognitionSucceeded,
     TResult? Function()? recognitionFailed,
-    TResult? Function()? recordingCompleted,
+    TResult? Function(List<int> soundValues)? recordingCompleted,
     TResult? Function()? recordingFailed,
   }) =>
       throw _privateConstructorUsedError;
@@ -45,7 +45,7 @@ mixin _$RecognizerState {
     TResult Function()? recognitionInProgress,
     TResult Function(String objectName)? recognitionSucceeded,
     TResult Function()? recognitionFailed,
-    TResult Function()? recordingCompleted,
+    TResult Function(List<int> soundValues)? recordingCompleted,
     TResult Function()? recordingFailed,
     required TResult orElse(),
   }) =>
@@ -177,7 +177,7 @@ class _$_InitialState implements _InitialState {
     required TResult Function() recognitionInProgress,
     required TResult Function(String objectName) recognitionSucceeded,
     required TResult Function() recognitionFailed,
-    required TResult Function() recordingCompleted,
+    required TResult Function(List<int> soundValues) recordingCompleted,
     required TResult Function() recordingFailed,
   }) {
     return initial(mode);
@@ -191,7 +191,7 @@ class _$_InitialState implements _InitialState {
     TResult? Function()? recognitionInProgress,
     TResult? Function(String objectName)? recognitionSucceeded,
     TResult? Function()? recognitionFailed,
-    TResult? Function()? recordingCompleted,
+    TResult? Function(List<int> soundValues)? recordingCompleted,
     TResult? Function()? recordingFailed,
   }) {
     return initial?.call(mode);
@@ -205,7 +205,7 @@ class _$_InitialState implements _InitialState {
     TResult Function()? recognitionInProgress,
     TResult Function(String objectName)? recognitionSucceeded,
     TResult Function()? recognitionFailed,
-    TResult Function()? recordingCompleted,
+    TResult Function(List<int> soundValues)? recordingCompleted,
     TResult Function()? recordingFailed,
     required TResult orElse(),
   }) {
@@ -320,7 +320,7 @@ class _$_RecordingInProgressState implements _RecordingInProgressState {
     required TResult Function() recognitionInProgress,
     required TResult Function(String objectName) recognitionSucceeded,
     required TResult Function() recognitionFailed,
-    required TResult Function() recordingCompleted,
+    required TResult Function(List<int> soundValues) recordingCompleted,
     required TResult Function() recordingFailed,
   }) {
     return recordingInProgress();
@@ -334,7 +334,7 @@ class _$_RecordingInProgressState implements _RecordingInProgressState {
     TResult? Function()? recognitionInProgress,
     TResult? Function(String objectName)? recognitionSucceeded,
     TResult? Function()? recognitionFailed,
-    TResult? Function()? recordingCompleted,
+    TResult? Function(List<int> soundValues)? recordingCompleted,
     TResult? Function()? recordingFailed,
   }) {
     return recordingInProgress?.call();
@@ -348,7 +348,7 @@ class _$_RecordingInProgressState implements _RecordingInProgressState {
     TResult Function()? recognitionInProgress,
     TResult Function(String objectName)? recognitionSucceeded,
     TResult Function()? recognitionFailed,
-    TResult Function()? recordingCompleted,
+    TResult Function(List<int> soundValues)? recordingCompleted,
     TResult Function()? recordingFailed,
     required TResult orElse(),
   }) {
@@ -459,7 +459,7 @@ class _$_RecognitionInProgressState implements _RecognitionInProgressState {
     required TResult Function() recognitionInProgress,
     required TResult Function(String objectName) recognitionSucceeded,
     required TResult Function() recognitionFailed,
-    required TResult Function() recordingCompleted,
+    required TResult Function(List<int> soundValues) recordingCompleted,
     required TResult Function() recordingFailed,
   }) {
     return recognitionInProgress();
@@ -473,7 +473,7 @@ class _$_RecognitionInProgressState implements _RecognitionInProgressState {
     TResult? Function()? recognitionInProgress,
     TResult? Function(String objectName)? recognitionSucceeded,
     TResult? Function()? recognitionFailed,
-    TResult? Function()? recordingCompleted,
+    TResult? Function(List<int> soundValues)? recordingCompleted,
     TResult? Function()? recordingFailed,
   }) {
     return recognitionInProgress?.call();
@@ -487,7 +487,7 @@ class _$_RecognitionInProgressState implements _RecognitionInProgressState {
     TResult Function()? recognitionInProgress,
     TResult Function(String objectName)? recognitionSucceeded,
     TResult Function()? recognitionFailed,
-    TResult Function()? recordingCompleted,
+    TResult Function(List<int> soundValues)? recordingCompleted,
     TResult Function()? recordingFailed,
     required TResult orElse(),
   }) {
@@ -625,7 +625,7 @@ class _$_RecognitionSucceededState implements _RecognitionSucceededState {
     required TResult Function() recognitionInProgress,
     required TResult Function(String objectName) recognitionSucceeded,
     required TResult Function() recognitionFailed,
-    required TResult Function() recordingCompleted,
+    required TResult Function(List<int> soundValues) recordingCompleted,
     required TResult Function() recordingFailed,
   }) {
     return recognitionSucceeded(objectName);
@@ -639,7 +639,7 @@ class _$_RecognitionSucceededState implements _RecognitionSucceededState {
     TResult? Function()? recognitionInProgress,
     TResult? Function(String objectName)? recognitionSucceeded,
     TResult? Function()? recognitionFailed,
-    TResult? Function()? recordingCompleted,
+    TResult? Function(List<int> soundValues)? recordingCompleted,
     TResult? Function()? recordingFailed,
   }) {
     return recognitionSucceeded?.call(objectName);
@@ -653,7 +653,7 @@ class _$_RecognitionSucceededState implements _RecognitionSucceededState {
     TResult Function()? recognitionInProgress,
     TResult Function(String objectName)? recognitionSucceeded,
     TResult Function()? recognitionFailed,
-    TResult Function()? recordingCompleted,
+    TResult Function(List<int> soundValues)? recordingCompleted,
     TResult Function()? recordingFailed,
     required TResult orElse(),
   }) {
@@ -768,7 +768,7 @@ class _$_RecognitionFailedState implements _RecognitionFailedState {
     required TResult Function() recognitionInProgress,
     required TResult Function(String objectName) recognitionSucceeded,
     required TResult Function() recognitionFailed,
-    required TResult Function() recordingCompleted,
+    required TResult Function(List<int> soundValues) recordingCompleted,
     required TResult Function() recordingFailed,
   }) {
     return recognitionFailed();
@@ -782,7 +782,7 @@ class _$_RecognitionFailedState implements _RecognitionFailedState {
     TResult? Function()? recognitionInProgress,
     TResult? Function(String objectName)? recognitionSucceeded,
     TResult? Function()? recognitionFailed,
-    TResult? Function()? recordingCompleted,
+    TResult? Function(List<int> soundValues)? recordingCompleted,
     TResult? Function()? recordingFailed,
   }) {
     return recognitionFailed?.call();
@@ -796,7 +796,7 @@ class _$_RecognitionFailedState implements _RecognitionFailedState {
     TResult Function()? recognitionInProgress,
     TResult Function(String objectName)? recognitionSucceeded,
     TResult Function()? recognitionFailed,
-    TResult Function()? recordingCompleted,
+    TResult Function(List<int> soundValues)? recordingCompleted,
     TResult Function()? recordingFailed,
     required TResult orElse(),
   }) {
@@ -866,6 +866,8 @@ abstract class _$$_RecordingCompletedStateCopyWith<$Res> {
   factory _$$_RecordingCompletedStateCopyWith(_$_RecordingCompletedState value,
           $Res Function(_$_RecordingCompletedState) then) =
       __$$_RecordingCompletedStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<int> soundValues});
 }
 
 /// @nodoc
@@ -875,27 +877,60 @@ class __$$_RecordingCompletedStateCopyWithImpl<$Res>
   __$$_RecordingCompletedStateCopyWithImpl(_$_RecordingCompletedState _value,
       $Res Function(_$_RecordingCompletedState) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? soundValues = null,
+  }) {
+    return _then(_$_RecordingCompletedState(
+      null == soundValues
+          ? _value._soundValues
+          : soundValues // ignore: cast_nullable_to_non_nullable
+              as List<int>,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_RecordingCompletedState implements _RecordingCompletedState {
-  const _$_RecordingCompletedState();
+  const _$_RecordingCompletedState(final List<int> soundValues)
+      : _soundValues = soundValues;
+
+  final List<int> _soundValues;
+  @override
+  List<int> get soundValues {
+    if (_soundValues is EqualUnmodifiableListView) return _soundValues;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_soundValues);
+  }
 
   @override
   String toString() {
-    return 'RecognizerState.recordingCompleted()';
+    return 'RecognizerState.recordingCompleted(soundValues: $soundValues)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RecordingCompletedState);
+            other is _$_RecordingCompletedState &&
+            const DeepCollectionEquality()
+                .equals(other._soundValues, _soundValues));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_soundValues));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RecordingCompletedStateCopyWith<_$_RecordingCompletedState>
+      get copyWith =>
+          __$$_RecordingCompletedStateCopyWithImpl<_$_RecordingCompletedState>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -905,10 +940,10 @@ class _$_RecordingCompletedState implements _RecordingCompletedState {
     required TResult Function() recognitionInProgress,
     required TResult Function(String objectName) recognitionSucceeded,
     required TResult Function() recognitionFailed,
-    required TResult Function() recordingCompleted,
+    required TResult Function(List<int> soundValues) recordingCompleted,
     required TResult Function() recordingFailed,
   }) {
-    return recordingCompleted();
+    return recordingCompleted(soundValues);
   }
 
   @override
@@ -919,10 +954,10 @@ class _$_RecordingCompletedState implements _RecordingCompletedState {
     TResult? Function()? recognitionInProgress,
     TResult? Function(String objectName)? recognitionSucceeded,
     TResult? Function()? recognitionFailed,
-    TResult? Function()? recordingCompleted,
+    TResult? Function(List<int> soundValues)? recordingCompleted,
     TResult? Function()? recordingFailed,
   }) {
-    return recordingCompleted?.call();
+    return recordingCompleted?.call(soundValues);
   }
 
   @override
@@ -933,12 +968,12 @@ class _$_RecordingCompletedState implements _RecordingCompletedState {
     TResult Function()? recognitionInProgress,
     TResult Function(String objectName)? recognitionSucceeded,
     TResult Function()? recognitionFailed,
-    TResult Function()? recordingCompleted,
+    TResult Function(List<int> soundValues)? recordingCompleted,
     TResult Function()? recordingFailed,
     required TResult orElse(),
   }) {
     if (recordingCompleted != null) {
-      return recordingCompleted();
+      return recordingCompleted(soundValues);
     }
     return orElse();
   }
@@ -995,7 +1030,13 @@ class _$_RecordingCompletedState implements _RecordingCompletedState {
 }
 
 abstract class _RecordingCompletedState implements RecognizerState {
-  const factory _RecordingCompletedState() = _$_RecordingCompletedState;
+  const factory _RecordingCompletedState(final List<int> soundValues) =
+      _$_RecordingCompletedState;
+
+  List<int> get soundValues;
+  @JsonKey(ignore: true)
+  _$$_RecordingCompletedStateCopyWith<_$_RecordingCompletedState>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1041,7 +1082,7 @@ class _$_RecordingFailedState implements _RecordingFailedState {
     required TResult Function() recognitionInProgress,
     required TResult Function(String objectName) recognitionSucceeded,
     required TResult Function() recognitionFailed,
-    required TResult Function() recordingCompleted,
+    required TResult Function(List<int> soundValues) recordingCompleted,
     required TResult Function() recordingFailed,
   }) {
     return recordingFailed();
@@ -1055,7 +1096,7 @@ class _$_RecordingFailedState implements _RecordingFailedState {
     TResult? Function()? recognitionInProgress,
     TResult? Function(String objectName)? recognitionSucceeded,
     TResult? Function()? recognitionFailed,
-    TResult? Function()? recordingCompleted,
+    TResult? Function(List<int> soundValues)? recordingCompleted,
     TResult? Function()? recordingFailed,
   }) {
     return recordingFailed?.call();
@@ -1069,7 +1110,7 @@ class _$_RecordingFailedState implements _RecordingFailedState {
     TResult Function()? recognitionInProgress,
     TResult Function(String objectName)? recognitionSucceeded,
     TResult Function()? recognitionFailed,
-    TResult Function()? recordingCompleted,
+    TResult Function(List<int> soundValues)? recordingCompleted,
     TResult Function()? recordingFailed,
     required TResult orElse(),
   }) {

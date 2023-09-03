@@ -23,7 +23,8 @@ class RecognizerScreen extends StatelessWidget {
         child: BlocConsumer<RecognizerCubit, RecognizerState>(
           listener: (context, state) {
             state.mapOrNull(recordingCompleted: (s) {
-              Navigator.of(context).pushNamed(RecordingDetailsScreen.routeName);
+              Navigator.of(context).pushNamed(RecordingDetailsScreen.routeName,
+                  arguments: s.soundValues);
             });
           },
           builder: (context, state) {

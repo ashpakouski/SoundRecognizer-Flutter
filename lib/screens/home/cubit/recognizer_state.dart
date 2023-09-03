@@ -17,7 +17,8 @@ class RecognizerState with _$RecognizerState {
 
   const factory RecognizerState.recognitionFailed() = _RecognitionFailedState;
 
-  const factory RecognizerState.recordingCompleted() = _RecordingCompletedState;
+  const factory RecognizerState.recordingCompleted(List<int> soundValues) =
+      _RecordingCompletedState;
 
   const factory RecognizerState.recordingFailed() = _RecordingFailedState;
 }

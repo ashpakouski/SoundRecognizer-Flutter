@@ -7,10 +7,12 @@ class RecordingDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final soundValues = ModalRoute.of(context)!.settings.arguments as List<int>;
+
     return Scaffold(
       backgroundColor: const Color(0xFF191C1E),
       body: Center(
-        child: Text("Recording details"),
+        child: Text("Recording length is ${soundValues.length}"),
       ),
     );
   }
