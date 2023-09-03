@@ -19,6 +19,7 @@ class RecognizerCubit extends Cubit<RecognizerState> {
           ? const RecognizerState.recordingInProgress()
           : const RecognizerState.recognitionInProgress());
     }, recordingInProgress: (_) {
+      emit(const RecognizerState.recordingCompleted());
       emit(const RecognizerState.initial(AppMode.recording));
     }, recognitionInProgress: (_) {
       emit(const RecognizerState.initial(AppMode.recognition));

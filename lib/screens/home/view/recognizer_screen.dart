@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sound_recognizer/common/enum/app_mode.dart';
 import 'package:sound_recognizer/component/index.dart';
 import 'package:sound_recognizer/screens/home/cubit/recognizer_cubit.dart';
+import 'package:sound_recognizer/screens/recording_details/view/recording_details_screen.dart';
 
 // Main app screen
 class RecognizerScreen extends StatelessWidget {
@@ -19,7 +20,12 @@ class RecognizerScreen extends StatelessWidget {
       backgroundColor: const Color(0xFF191C1E),
       body: BlocProvider(
         create: (_) => cubit,
-        child: BlocBuilder<RecognizerCubit, RecognizerState>(
+        child: BlocConsumer<RecognizerCubit, RecognizerState>(
+          listener: (context, state) {
+            state.mapOrNull(recordingCompleted: (s) {
+              Navigator.of(context).pushNamed(RecordingDetailsScreen.routeName);
+            });
+          },
           builder: (context, state) {
             return Stack(
               children: [
