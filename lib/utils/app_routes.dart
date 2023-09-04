@@ -3,5 +3,5 @@ import 'package:sound_recognizer/screens/recording_details/view/recording_detail
 
 final appRoutes = {
   RecognizerScreen.routeName: (context) => const RecognizerScreen(),
-  RecordingDetailsScreen.routeName: (context) => const RecordingDetailsScreen(),
+  RecordingDetailsScreen.routeName: (context) => RecordingDetailsScreen(),
 };

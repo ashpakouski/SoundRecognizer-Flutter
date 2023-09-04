@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sound_recognizer/component/index.dart';
 
 class RecordingDetailsScreen extends StatelessWidget {
   static const routeName = "recordingDetails";
 
-  const RecordingDetailsScreen({super.key});
+  RecordingDetailsScreen({super.key});
+
+  final TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +15,13 @@ class RecordingDetailsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFF191C1E),
       body: Center(
-        child: Text("Recording length is ${soundValues.length}"),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: TextInputField(
+            controller: controller,
+            hint: "Sound name",
+          ),
+        ),
       ),
     );
   }
